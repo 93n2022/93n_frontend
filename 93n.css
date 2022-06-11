@@ -1,0 +1,13 @@
+.hide {
+  display: none;
+}
+a {
+  cursor: pointer;
+  color: blue;
+}
+input {
+  width: 350px;
+}
+i {
+  font-size: small;
+}

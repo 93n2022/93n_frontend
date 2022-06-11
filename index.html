@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>93N</title>
+    <script src="https://aloycwl.github.io/js/cdn/jquery.min.js"></script>
+    <script src="https://aloycwl.github.io/js/cdn/web3.min.js"></script>
+    <script src="https://aloycwl.github.io/js/cdn/web3ac.js"></script>
+  </head>
+  <body>
+    <a id="connect" onclick="load();">Connect</a>
+    <div id="root" class="hide">
+      Referred by: <span id="txtRB"></span><br /><br />
+      <a onclick="deposit()">Deposit</a> - Approval first - Deposit next
+      <br /><br />
+      Referral link (click to copy):
+      <input
+        readonly
+        id="txtRef"
+        onclick="navigator.clipboard.writeText($(location).attr('host')+'#'+$(this).val());$('#copied').show()"
+      />
+      <i id="copied" class="hide">Copied</i><br /><br />
+      <a onclick="stake()">Staking update</a><br /><br />
+      <p id="p1">USDT available:</p>
+      <p id="p2">User's info:</p>
+      <p id="p3">Downlines:</p>
+    </div>
+  </body>
+  <script>
+    CHAIN = 4;
+    CS = 'https://aloycwl.github.io/93n_frontend/css/93n.css';
+    CA2 = '0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198';
+    async function display() {
+      $('#txtRB').html(_R());
+      $('#txtRef').val(acct);
+    }
+    async function deposit() {
+      await contract2
+        .approve('0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198', 1e4)
+        .send(FA);
+      await contract.Deposit(acct[0], 1e4, 9).send({
+        from: acct,
+        value: 0.0e18,
+      });
+      location.reload();
+    }
+    async function stake() {
+      await contract.Staking().send(FA);
+      location.reload();
+    }
+    (async () => {
+      await load(
+        [
+          {
+            inputs: [u3, u1, u1],
+            name: 'Deposit',
+            outputs: [],
+            stateMutability: 'payable',
+            type: 'function',
+          },
+          {
+            inputs: [],
+            name: 'Staking',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'getDownlines',
+            outputs: [u4],
+            stateMutability: 'view',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'getUplines',
+            outputs: [u3, u3, u3],
+            stateMutability: 'view',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'user',
+            outputs: [u3, u1, u1, u1, u1, u1],
+            stateMutability: 'view',
+            type: 'function',
+          },
+        ],
+        '0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198'
+      );
+      await load2();
+      display();
+    })();
+    $(document).ready(function () {
+      setInterval(async function () {
+        if (typeof ethereum != 'undefined') {
+          d = await web3.getAccounts();
+          if (d.length > 0) {
+            $('#connect').hide();
+            $('#root').show();
+          } else $('#connect').show();
+        } else $('#connect').html('No Metamask');
+      }, 1000);
+    });
+  </script>
+</html>
