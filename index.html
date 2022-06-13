@@ -99,7 +99,6 @@
   </body>
   <script>
     CHAIN = 4;
-    CS = 'https://aloycwl.github.io/93n_frontend/css/93n.css';
     CA = '0x00691081759EF9C21199881F45Bec32f381C4128';
     CA2 = '0xA952Fb1E68Cf0688E4C9474aBDE961Ed6b52151E';
     async function display() {
@@ -214,8 +213,8 @@
         '0x129E44F2157A2819e37924f02eFCfFE2e9d409B9'
       );
       await disUSDT();
-      //downlines = await contract.methods.getDownlines(acct).call();
-      //for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
+      downlines = await contract.methods.getDownlines(acct).call();
+      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
       display();
       loadEarnings();
     }
