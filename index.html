@@ -27,7 +27,7 @@
   <body>
     <a id="connect" onclick="connect()">Connect</a>
     <div id="root" class="hide">
-      <h1>Step 1</h1>
+      <h1>Part 1</h1>
       <ol>
         <li>Connect to Rinkeby Test Network</li>
         <li>
@@ -43,8 +43,9 @@
         <li>Your USDT Token: <span id="txtUSDT"></span></li>
         <li>Your 93N Token: <span id="txt93N"></span></li>
       </ol>
-      <h1>Step 2</h1>
+      <h1>Part 2</h1>
       <ol>
+        <li>Referred by: <span id="txtRB"></span></li>
         <li>Approval to transfer USDT to contract.</li>
         <li>
           10,000 USDT x
@@ -68,23 +69,31 @@
           </select>
           months - <a onclick="deposit()">Deposit</a>
         </li>
-        <li id="status"></li>
+        <li><i id="status">Status...</i></li>
+        <li>
+          Your referral link:
+          <a
+            id="txtRef"
+            onclick="navigator.clipboard.writeText($(location).attr('host')+'#'+$(this).val());$('#status').html('Copied')"
+            >Click to copy</a
+          >
+        </li>
       </ol>
-
-      Referred by: <span id="txtRB"></span><br /><br />
-      <a onclick="deposit()">Deposit</a> - Approval first - Deposit next
-      <br /><br />
-      Referral link (click to copy):
-      <input
-        readonly
-        id="txtRef"
-        onclick="navigator.clipboard.writeText($(location).attr('host')+'#'+$(this).val());$('#copied').show()"
-      />
-      <i id="copied" class="hide">Copied</i><br /><br />
-      <a onclick="stake()">Staking update</a><br /><br />
-      <p id="p1">USDT available:</p>
-      <p id="p2">User's info:</p>
-      <p id="p3">Downlines:</p>
+      <h1>Part 3</h1>
+      <ol>
+        <li id="lv1">Your level 1 downlines</li>
+        <li id="lv2">Your level 2 downlines</li>
+        <li id="lv3">Your level 3 downlines</li>
+        <li id="lv3">Your earning history</li>
+      </ol>
+      <h1>Part 4</h1>
+      <ol>
+        <li>Coming soon: STAKING testing</li>
+      </ol>
+      <h1>Part 5</h1>
+      <ol>
+        <li>Coming soon: LIVE coin price from PanCakeSwap testing</li>
+      </ol>
     </div>
   </body>
   <script>
@@ -108,14 +117,10 @@
         return;
       }
       $('#status').html('Approving...');
-      await contract2.approve(CA, amt).send(FA);
+      await contract3.approve(CA, amt).send(FA);
       $('#status').html('Depositing...');
-      await contract.Deposit(acct, amt, $('#months').val()).send(FA);
+      await contract.Deposit(_R(), amt, $('#months').val()).send(FA);
       $('#status').html('Deposited Successfully');
-    }
-    async function stake() {
-      await contract.Staking().send(FA);
-      location.reload();
     }
     async function connect() {
       await load(
