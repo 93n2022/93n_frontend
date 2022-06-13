@@ -38,21 +38,22 @@
       ],
       '0x00691081759EF9C21199881F45Bec32f381C4128'
     );
-    arr = new Array();
-    contract
+    await contract
       .getPastEvents('Payout', {
-        to: '0x0C38a374D55FF7757148a3B1dAF641232C24aB7b',
+        filter: {
+          to: '0x0C38a374D55FF7757148a3B1dAF641232C24aB7b',
+        },
         fromBlock: 0,
         toBlock: 'latest',
       })
       .then((events) => {
         events.forEach((event) => {
-          console.log(event);
-          //if (!arr.includes(event.returnValues.to))
-          //arr.push(event.returnValues.to);
+          e = event.returnValues;
+          console.log(
+            e.from + ' => ' + (e.amount / 1e18).toLocaleString('en-US')
+          );
         });
       });
-    //console.log(arr);
   }
   load();
 </script>

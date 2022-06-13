@@ -85,6 +85,7 @@
         <li>Your level 2 downlines: <span id="lv2"></span></li>
         <li>Your level 3 downlines: <span id="lv3"></span></li>
         <li>Your earning history</li>
+        <ol id="history"></ol>
       </ol>
       <h1>Part 4</h1>
       <ol>
@@ -186,6 +187,7 @@
       downlines = await contract.getDownlines(acct).call();
       for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
       display();
+      loadEarnings();
     }
 
     async function claim() {
@@ -206,7 +208,7 @@
       connect();
     });
     async function loadEarnings() {
-      contract = new web3.eth.Contract(
+      conLE = new web3.Contract(
         [
           {
             anonymous: false,
@@ -242,17 +244,22 @@
         ],
         CA
       );
-      arr = new Array();
-      contract
-        .getPastEvents('Payout', { to: acct, fromBlock: 0, toBlock: 'latest' })
+      await conLE
+        .getPastEvents('Payout', {
+          filter: { to: acct },
+          fromBlock: 0,
+          toBlock: 'latest',
+        })
         .then((events) => {
+          str = '';
           events.forEach((event) => {
-            console.log(event);
-            //if (!arr.includes(event.returnValues.to))
-            //arr.push(event.returnValues.to);
+            e = event.returnValues;
+            str += `<li>${e.from} (${e.status}) => ${(
+              e.amount / 1e18
+            ).toLocaleString('en-US')}</li>`;
           });
+          $('#history').html(str);
         });
-      //console.log(arr);
     }
   </script>
 </html>
