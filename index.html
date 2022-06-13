@@ -24,7 +24,17 @@
   <body>
     <a id="connect" onclick="connect()">Connect</a>
     <div id="root" class="hide">
-      Referred by: <span id="txtRB"></span><br /><br />
+      <h1>Step 1</h1>
+      <ol>
+        <li>Connect to test BNB network</li>
+        <li>
+          Get some free BNB from faucet -
+          <a href="https://testnet.binance.org/faucet-smart"
+            >https://testnet.binance.org/faucet-smart</a
+          >
+        </li>
+      </ol>
+      Your USDT: Referred by: <span id="txtRB"></span><br /><br />
       <a onclick="deposit()">Deposit</a> - Approval first - Deposit next
       <br /><br />
       Referral link (click to copy):
@@ -41,7 +51,7 @@
     </div>
   </body>
   <script>
-    CHAIN = 4;
+    CHAIN = 61;
     CS = 'https://aloycwl.github.io/93n_frontend/css/93n.css';
     CA2 = '0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198';
     async function display() {
