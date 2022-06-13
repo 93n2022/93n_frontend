@@ -81,10 +81,10 @@
       </ol>
       <h1>Part 3</h1>
       <ol>
-        <li id="lv1">Your level 1 downlines:</li>
-        <li id="lv2">Your level 2 downlines:</li>
-        <li id="lv3">Your level 3 downlines:</li>
-        <li id="lv3">Your earning history</li>
+        <li>Your level 1 downlines: <span id="lv1"></span></li>
+        <li>Your level 2 downlines: <span id="lv2"></span></li>
+        <li>Your level 3 downlines: <span id="lv3"></span></li>
+        <li>Your earning history</li>
       </ol>
       <h1>Part 4</h1>
       <ol>
@@ -184,7 +184,7 @@
       contract3 = contract3.methods;
       await disUSDT();
       downlines = await contract.getDownlines(acct).call();
-      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).append(' ' + downlines[i]);
+      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
       display();
     }
 
@@ -198,12 +198,61 @@
       balUSDT = (
         (await contract3.balanceOf(acct).call()) / 1e18
       ).toLocaleString('en-US');
-      bal93N = ((await LB()) / 1e18).toLocaleString('en-US');
+      bal93N = await LB();
       $('#txtUSDT').html(balUSDT);
-      $('#txt93N').html(bal93N);
+      $('#txt93N').html(bal93N.toLocaleString('en-US'));
     }
     window.ethereum.on('accountsChanged', function (accounts) {
       connect();
     });
+    async function loadEarnings() {
+      contract = new web3.eth.Contract(
+        [
+          {
+            anonymous: false,
+            inputs: [
+              {
+                indexed: true,
+                internalType: 'address',
+                name: 'from',
+                type: 'address',
+              },
+              {
+                indexed: true,
+                internalType: 'address',
+                name: 'to',
+                type: 'address',
+              },
+              {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+              },
+              {
+                indexed: true,
+                internalType: 'uint256',
+                name: 'status',
+                type: 'uint256',
+              },
+            ],
+            name: 'Payout',
+            type: 'event',
+          },
+        ],
+        CA
+      );
+      arr = new Array();
+      contract
+        .getPastEvents('Payout', { to: acct, fromBlock: 0, toBlock: 'latest' })
+        .then((events) => {
+          events.forEach((event) => {
+            console.log(event);
+            //if (!arr.includes(event.returnValues.to))
+            //arr.push(event.returnValues.to);
+          });
+        });
+      //console.log(arr);
+    }
   </script>
 </html>

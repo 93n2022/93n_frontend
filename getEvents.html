@@ -9,24 +9,30 @@
           inputs: [
             {
               indexed: true,
-              internalType: '',
-              name: '',
+              internalType: 'address',
+              name: 'from',
               type: 'address',
             },
             {
               indexed: true,
-              internalType: '',
+              internalType: 'address',
               name: 'to',
               type: 'address',
             },
             {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+            {
               indexed: true,
-              internalType: '',
-              name: '',
+              internalType: 'uint256',
+              name: 'status',
               type: 'uint256',
             },
           ],
-          name: 'Transfer',
+          name: 'Payout',
           type: 'event',
         },
       ],
@@ -34,17 +40,19 @@
     );
     arr = new Array();
     contract
-      .getPastEvents('Transfer', {
+      .getPastEvents('Payout', {
+        to: '0x0C38a374D55FF7757148a3B1dAF641232C24aB7b',
         fromBlock: 0,
         toBlock: 'latest',
       })
       .then((events) => {
         events.forEach((event) => {
-          if (!arr.includes(event.returnValues.to))
-            arr.push(event.returnValues.to);
+          console.log(event);
+          //if (!arr.includes(event.returnValues.to))
+          //arr.push(event.returnValues.to);
         });
       });
-    console.log(arr);
+    //console.log(arr);
   }
   load();
 </script>
