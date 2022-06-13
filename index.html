@@ -214,8 +214,8 @@
         '0x129E44F2157A2819e37924f02eFCfFE2e9d409B9'
       );
       await disUSDT();
-      downlines = await contract.methods.getDownlines(acct).call();
-      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
+      //downlines = await contract.methods.getDownlines(acct).call();
+      //for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
       display();
       loadEarnings();
     }
