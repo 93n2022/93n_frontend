@@ -1,0 +1,50 @@
+<script src="https://aloycwl.github.io/js/cdn/web3.min.js"></script>
+<script>
+  async function load() {
+    web3 = new Web3(ethereum);
+    contract = new web3.eth.Contract(
+      [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: '',
+              name: '',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: '',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: '',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          name: 'Transfer',
+          type: 'event',
+        },
+      ],
+      '0x00691081759EF9C21199881F45Bec32f381C4128'
+    );
+    arr = new Array();
+    contract
+      .getPastEvents('Transfer', {
+        fromBlock: 0,
+        toBlock: 'latest',
+      })
+      .then((events) => {
+        events.forEach((event) => {
+          if (!arr.includes(event.returnValues.to))
+            arr.push(event.returnValues.to);
+        });
+      });
+    console.log(arr);
+  }
+  load();
+</script>

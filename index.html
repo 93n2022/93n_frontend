@@ -81,9 +81,9 @@
       </ol>
       <h1>Part 3</h1>
       <ol>
-        <li id="lv1">Your level 1 downlines</li>
-        <li id="lv2">Your level 2 downlines</li>
-        <li id="lv3">Your level 3 downlines</li>
+        <li id="lv1">Your level 1 downlines:</li>
+        <li id="lv2">Your level 2 downlines:</li>
+        <li id="lv3">Your level 3 downlines:</li>
         <li id="lv3">Your earning history</li>
       </ol>
       <h1>Part 4</h1>
@@ -110,7 +110,6 @@
     async function deposit() {
       oamt = 10000 * $('#num').val() * 1e18;
       amt = oamt.toLocaleString('fullwide', { useGrouping: false });
-      console.log(amt);
       if (oamt > balUSDT) {
         $('#status').html('Insufficient USDT');
         return;
@@ -141,7 +140,7 @@
           {
             inputs: [u3],
             name: 'getDownlines',
-            outputs: [u4],
+            outputs: [u4, u4, u4],
             stateMutability: 'view',
             type: 'function',
           },
@@ -185,6 +184,7 @@
       contract3 = contract3.methods;
       await disUSDT();
       downlines = await contract.getDownlines(acct).call();
+      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).append(' ' + downlines[i]);
       display();
     }
 
@@ -192,6 +192,7 @@
       $('#status').html('Minting...');
       await contract3.MINT(acct).send(FA);
       disUSDT();
+      $('#status').html('Minted');
     }
     async function disUSDT() {
       balUSDT = (
