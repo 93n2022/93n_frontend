@@ -54,12 +54,12 @@
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="4">5</option>
-            <option value="4">6</option>
-            <option value="4">7</option>
-            <option value="4">8</option>
-            <option value="4">9</option>
-            <option value="4">10</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
           </select>
           in
           <select id="months">
@@ -110,6 +110,7 @@
     async function deposit() {
       oamt = 10000 * $('#num').val() * 1e18;
       amt = oamt.toLocaleString('fullwide', { useGrouping: false });
+      console.log(amt);
       if (oamt > balUSDT) {
         $('#status').html('Insufficient USDT');
         return;
@@ -183,10 +184,12 @@
       );
       contract3 = contract3.methods;
       await disUSDT();
-      downlines = await display();
+      downlines = await contract.getDownlines(acct).call();
+      display();
     }
 
     async function claim() {
+      $('#status').html('Minting...');
       await contract3.MINT(acct).send(FA);
       disUSDT();
     }
