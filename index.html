@@ -109,9 +109,7 @@
     }
     async function deposit() {
       oamt = 10000 * $('#num').val() * 1e18;
-      amt = (10000 * $('#num').val() * 1e18).toLocaleString('fullwide', {
-        useGrouping: false,
-      });
+      amt = oamt.toLocaleString('fullwide', { useGrouping: false });
       if (oamt > balUSDT) {
         $('#status').html('Insufficient USDT');
         return;
@@ -185,7 +183,7 @@
       );
       contract3 = contract3.methods;
       await disUSDT();
-      display();
+      downlines = await display();
     }
 
     async function claim() {
@@ -200,5 +198,8 @@
       $('#txtUSDT').html(balUSDT);
       $('#txt93N').html(bal93N);
     }
+    window.ethereum.on('accountsChanged', function (accounts) {
+      connect();
+    });
   </script>
 </html>
