@@ -12,9 +12,12 @@
       a {
         cursor: pointer;
         color: blue;
+        text-decoration: underline;
       }
       input {
         width: 350px;
+        cursor: pointer;
+        background-color: #eeeeee;
       }
       i {
         font-size: small;
@@ -26,15 +29,48 @@
     <div id="root" class="hide">
       <h1>Step 1</h1>
       <ol>
-        <li>Connect to test BNB network</li>
+        <li>Connect to Rinkeby Test Network</li>
         <li>
-          Get some free BNB from faucet -
-          <a href="https://testnet.binance.org/faucet-smart"
-            >https://testnet.binance.org/faucet-smart</a
+          Get test token from faucet as gas fee -
+          <a href="https://rinkebyfaucet.com/" target="_blank"
+            >https://rinkebyfaucet.com/</a
           >
         </li>
+        <li>
+          Claim MOCK-USDT to deposit -
+          <a onclick="claim()">click here</a>
+        </li>
+        <li>Your USDT Token: <span id="txtUSDT"></span></li>
+        <li>Your 93N Token: <span id="txt93N"></span></li>
       </ol>
-      Your USDT: Referred by: <span id="txtRB"></span><br /><br />
+      <h1>Step 2</h1>
+      <ol>
+        <li>Approval to transfer USDT to contract.</li>
+        <li>
+          10,000 USDT x
+          <select id="num">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="4">5</option>
+            <option value="4">6</option>
+            <option value="4">7</option>
+            <option value="4">8</option>
+            <option value="4">9</option>
+            <option value="4">10</option>
+          </select>
+          in
+          <select id="months">
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="7">9</option>
+          </select>
+          months - <a onclick="deposit()">Deposit</a>
+        </li>
+      </ol>
+
+      Referred by: <span id="txtRB"></span><br /><br />
       <a onclick="deposit()">Deposit</a> - Approval first - Deposit next
       <br /><br />
       Referral link (click to copy):
@@ -51,9 +87,10 @@
     </div>
   </body>
   <script>
-    CHAIN = 61;
+    CHAIN = 4;
     CS = 'https://aloycwl.github.io/93n_frontend/css/93n.css';
-    CA2 = '0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198';
+    CA = '0x00691081759EF9C21199881F45Bec32f381C4128';
+    CA2 = '0xA952Fb1E68Cf0688E4C9474aBDE961Ed6b52151E';
     async function display() {
       $('#txtRB').html(_R());
       $('#txtRef').val(acct);
@@ -61,14 +98,9 @@
       $('#connect').hide();
     }
     async function deposit() {
-      await contract2
-        .approve('0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198', 1e4)
-        .send(FA);
-      await contract.Deposit(acct[0], 1e4, 9).send({
-        from: acct,
-        value: 0.0e18,
-      });
-      location.reload();
+      amt = 10000 * $('num').val() * 1e18;
+      await contract2.approve(CA, amt).send(FA);
+      await contract.Deposit(acct[0], amt, $('months').val()).send(FA);
     }
     async function stake() {
       await contract.Staking().send(FA);
@@ -100,23 +132,57 @@
           },
           {
             inputs: [u3],
-            name: 'getUplines',
-            outputs: [u3, u3, u3],
-            stateMutability: 'view',
-            type: 'function',
-          },
-          {
-            inputs: [u3],
             name: 'user',
             outputs: [u3, u1, u1, u1, u1, u1],
             stateMutability: 'view',
             type: 'function',
           },
         ],
-        '0x80BB34c189D43C6c3b3FB8B7921A6A389Ed92198'
+        CA
       );
       await load2();
+      contract3 = new web3.Contract(
+        [
+          {
+            inputs: [u3],
+            name: 'balanceOf',
+            outputs: [u1],
+            stateMutability: 'view',
+            type: 'function',
+          },
+          {
+            inputs: [u3, u1],
+            name: 'approve',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'MINT',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+        ],
+        '0x129E44F2157A2819e37924f02eFCfFE2e9d409B9'
+      );
+      contract3 = contract3.methods;
+      await disUSDT();
       display();
+    }
+
+    async function claim() {
+      await contract3.MINT(acct).send(FA);
+      disUSDT();
+    }
+    async function disUSDT() {
+      balUSDT = (
+        (await contract3.balanceOf(acct).call()) / 1e18
+      ).toLocaleString('en-US');
+      bal93N = ((await LB()) / 1e18).toLocaleString('en-US');
+      $('#txtUSDT').html(balUSDT);
+      $('#txt93N').html(bal93N);
     }
   </script>
 </html>
