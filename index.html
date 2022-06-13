@@ -5,9 +5,24 @@
     <script src="https://aloycwl.github.io/js/cdn/jquery.min.js"></script>
     <script src="https://aloycwl.github.io/js/cdn/web3.min.js"></script>
     <script src="https://aloycwl.github.io/js/cdn/web3ac.js"></script>
+    <style>
+      .hide {
+        display: none;
+      }
+      a {
+        cursor: pointer;
+        color: blue;
+      }
+      input {
+        width: 350px;
+      }
+      i {
+        font-size: small;
+      }
+    </style>
   </head>
   <body>
-    <a id="connect" onclick="load();">Connect</a>
+    <a id="connect" onclick="connect()">Connect</a>
     <div id="root" class="hide">
       Referred by: <span id="txtRB"></span><br /><br />
       <a onclick="deposit()">Deposit</a> - Approval first - Deposit next
@@ -32,6 +47,8 @@
     async function display() {
       $('#txtRB').html(_R());
       $('#txtRef').val(acct);
+      $('#root').show();
+      $('#connect').hide();
     }
     async function deposit() {
       await contract2
@@ -47,7 +64,7 @@
       await contract.Staking().send(FA);
       location.reload();
     }
-    (async () => {
+    async function connect() {
       await load(
         [
           {
@@ -90,17 +107,6 @@
       );
       await load2();
       display();
-    })();
-    $(document).ready(function () {
-      setInterval(async function () {
-        if (typeof ethereum != 'undefined') {
-          d = await web3.getAccounts();
-          if (d.length > 0) {
-            $('#connect').hide();
-            $('#root').show();
-          } else $('#connect').show();
-        } else $('#connect').html('No Metamask');
-      }, 1000);
-    });
+    }
   </script>
 </html>
