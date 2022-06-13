@@ -68,6 +68,7 @@
           </select>
           months - <a onclick="deposit()">Deposit</a>
         </li>
+        <li id="status"></li>
       </ol>
 
       Referred by: <span id="txtRB"></span><br /><br />
@@ -98,11 +99,19 @@
       $('#connect').hide();
     }
     async function deposit() {
+      oamt = 10000 * $('#num').val() * 1e18;
       amt = (10000 * $('#num').val() * 1e18).toLocaleString('fullwide', {
         useGrouping: false,
       });
+      if (oamt > balUSDT) {
+        $('#status').html('Insufficient USDT');
+        return;
+      }
+      $('#status').html('Approving...');
       await contract2.approve(CA, amt).send(FA);
+      $('#status').html('Depositing...');
       await contract.Deposit(acct, amt, $('#months').val()).send(FA);
+      $('#status').html('Deposited Successfully');
     }
     async function stake() {
       await contract.Staking().send(FA);
