@@ -74,7 +74,7 @@
           Your referral link:
           <a
             id="txtRef"
-            onclick="navigator.clipboard.writeText($(location).attr('host')+'#'+$(this).val());$('#status').html('Copied')"
+            onclick="navigator.clipboard.writeText(document.URL+'#'+$(this).val());$('#status').html('Copied')"
             >Click to copy</a
           >
         </li>
