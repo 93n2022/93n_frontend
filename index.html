@@ -98,9 +98,11 @@
       $('#connect').hide();
     }
     async function deposit() {
-      amt = 10000 * $('num').val() * 1e18;
+      amt = (10000 * $('#num').val() * 1e18).toLocaleString('fullwide', {
+        useGrouping: false,
+      });
       await contract2.approve(CA, amt).send(FA);
-      await contract.Deposit(acct[0], amt, $('months').val()).send(FA);
+      await contract.Deposit(acct, amt, $('#months').val()).send(FA);
     }
     async function stake() {
       await contract.Staking().send(FA);
