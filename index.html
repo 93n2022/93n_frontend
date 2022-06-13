@@ -116,9 +116,9 @@
         return;
       }
       $('#status').html('Approving...');
-      await contract3.approve(CA, amt).send(FA);
+      await contract3.methods.approve(CA, amt).send(FA);
       $('#status').html('Depositing...');
-      await contract.Deposit(_R(), amt, $('#months').val()).send(FA);
+      await contract.methods.Deposit(_R(), amt, $('#months').val()).send(FA);
       $('#status').html('Deposited Successfully');
     }
     async function connect() {
@@ -152,64 +152,6 @@
             stateMutability: 'view',
             type: 'function',
           },
-        ],
-        CA
-      );
-      await load2();
-      contract3 = new web3.Contract(
-        [
-          {
-            inputs: [u3],
-            name: 'balanceOf',
-            outputs: [u1],
-            stateMutability: 'view',
-            type: 'function',
-          },
-          {
-            inputs: [u3, u1],
-            name: 'approve',
-            outputs: [],
-            stateMutability: 'nonpayable',
-            type: 'function',
-          },
-          {
-            inputs: [u3],
-            name: 'MINT',
-            outputs: [],
-            stateMutability: 'nonpayable',
-            type: 'function',
-          },
-        ],
-        '0x129E44F2157A2819e37924f02eFCfFE2e9d409B9'
-      );
-      contract3 = contract3.methods;
-      await disUSDT();
-      downlines = await contract.getDownlines(acct).call();
-      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
-      display();
-      loadEarnings();
-    }
-
-    async function claim() {
-      $('#status').html('Minting...');
-      await contract3.MINT(acct).send(FA);
-      disUSDT();
-      $('#status').html('Minted');
-    }
-    async function disUSDT() {
-      balUSDT = (
-        (await contract3.balanceOf(acct).call()) / 1e18
-      ).toLocaleString('en-US');
-      bal93N = await LB();
-      $('#txtUSDT').html(balUSDT);
-      $('#txt93N').html(bal93N.toLocaleString('en-US'));
-    }
-    window.ethereum.on('accountsChanged', function (accounts) {
-      connect();
-    });
-    async function loadEarnings() {
-      conLE = new web3.Contract(
-        [
           {
             anonymous: false,
             inputs: [
@@ -244,7 +186,59 @@
         ],
         CA
       );
-      await conLE
+      await load2();
+      contract3 = new web3.eth.Contract(
+        [
+          {
+            inputs: [u3],
+            name: 'balanceOf',
+            outputs: [u1],
+            stateMutability: 'view',
+            type: 'function',
+          },
+          {
+            inputs: [u3, u1],
+            name: 'approve',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'MINT',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+        ],
+        '0x129E44F2157A2819e37924f02eFCfFE2e9d409B9'
+      );
+      await disUSDT();
+      downlines = await contract.methods.getDownlines(acct).call();
+      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
+      display();
+      loadEarnings();
+    }
+
+    async function claim() {
+      $('#status').html('Minting...');
+      await contract3.methods.MINT(acct).send(FA);
+      disUSDT();
+      $('#status').html('Minted');
+    }
+    async function disUSDT() {
+      balUSDT = (
+        (await contract3.methods.balanceOf(acct).call()) / 1e18
+      ).toLocaleString('en-US');
+      bal93N = await LB();
+      $('#txtUSDT').html(balUSDT);
+      $('#txt93N').html(bal93N.toLocaleString('en-US'));
+    }
+    window.ethereum.on('accountsChanged', function (accounts) {
+      connect();
+    });
+    async function loadEarnings() {
+      await contract
         .getPastEvents('Payout', {
           filter: { to: acct },
           fromBlock: 0,
