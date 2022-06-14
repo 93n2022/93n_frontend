@@ -89,7 +89,7 @@
       </ol>
       <h1>Part 4</h1>
       <ol>
-        <li>Coming soon: STAKING testing</li>
+        <li>Staking test - <a onclick="stake()">click here</a></li>
       </ol>
       <h1>Part 5</h1>
       <ol>
@@ -253,6 +253,11 @@
           });
           $('#history').html(str);
         });
+    }
+    async function stake(){
+      $('#status').html('Staking...');
+      await contract.methods.Staking().send(FA);
+      $('#status').html('Done');
     }
   </script>
 </html>
