@@ -81,9 +81,14 @@
       </ol>
       <h1>Part 3</h1>
       <ol>
+        <li>Your packages details</li>
+        <ul>
+          <li>Amount (wallet)</li>
+          <li>Rate</li>
+          <li>Last claimed</li>
+          <li>Expiry + months</li>
+        </ul>
         <li>Your level 1 downlines: <span id="lv1"></span></li>
-        <li>Your level 2 downlines: <span id="lv2"></span></li>
-        <li>Your level 3 downlines: <span id="lv3"></span></li>
         <li>Your earning history</li>
         <ol id="history"></ol>
       </ol>
@@ -254,7 +259,7 @@
           $('#history').html(str);
         });
     }
-    async function stake(){
+    async function stake() {
       $('#status').html('Staking...');
       await contract.methods.Staking().send(FA);
       $('#status').html('Done');
