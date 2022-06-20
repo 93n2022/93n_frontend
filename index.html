@@ -104,8 +104,8 @@
   </body>
   <script>
     CHAIN = 4;
-    CA = '0x00691081759EF9C21199881F45Bec32f381C4128';
-    CA2 = '0xA952Fb1E68Cf0688E4C9474aBDE961Ed6b52151E';
+    CA = '0x3729feef3b89bEE099D49C1c932f01dcaE7AF97a';
+    CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
     async function display() {
       $('#txtRB').html(_R());
       $('#txtRef').val(acct);
@@ -215,7 +215,7 @@
             type: 'function',
           },
         ],
-        '0x129E44F2157A2819e37924f02eFCfFE2e9d409B9'
+        '0x8600D030567d4dfA34bB18F650675Df86dC41993'
       );
       await disUSDT();
       downlines = await contract.methods.getDownlines(acct).call();
