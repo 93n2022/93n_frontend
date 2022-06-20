@@ -129,31 +129,17 @@
       await load(
         [
           {
-            inputs: [u3, u1, u1],
-            name: 'Deposit',
-            outputs: [],
-            stateMutability: 'payable',
-            type: 'function',
-          },
-          {
             inputs: [],
-            name: 'Staking',
+            name: 'Cleanup',
             outputs: [],
             stateMutability: 'nonpayable',
             type: 'function',
           },
           {
-            inputs: [u3],
-            name: 'getDownlines',
-            outputs: [u4, u4, u4],
-            stateMutability: 'view',
-            type: 'function',
-          },
-          {
-            inputs: [u3],
-            name: 'user',
-            outputs: [u3, u1, u1, u1, u1, u1],
-            stateMutability: 'view',
+            inputs: [u3, u1, u1],
+            name: 'Deposit',
+            outputs: [],
+            stateMutability: 'nonpayable',
             type: 'function',
           },
           {
@@ -186,6 +172,41 @@
             ],
             name: 'Payout',
             type: 'event',
+          },
+          {
+            inputs: [u1],
+            name: 'SetSplit',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [],
+            name: 'Staking',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'getDownlines',
+            outputs: [u4, u1, u1],
+            stateMutability: 'view',
+            type: 'function',
+          },
+          {
+            inputs: [u3],
+            name: 'getUserPackages',
+            outputs: [u2],
+            stateMutability: 'view',
+            type: 'function',
+          },
+          {
+            inputs: [u1],
+            name: 'Pack',
+            outputs: [u1, u1, u1, u1, u1, u1, u3],
+            stateMutability: 'view',
+            type: 'function',
           },
         ],
         CA
