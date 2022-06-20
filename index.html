@@ -274,10 +274,10 @@
     async function disPack(_pa) {
       pa = await contract.methods.Pack(_pa).call();
       $('#p' + _pa).html(
-        `Deposited: ${pa[1] / 1e18}, Expiry: ${moment
+        `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
           .unix(pa[4])
           .add(pa[5], 'M')
-          .format('DD/MM/YYYY')}`
+          .format('D-MMM-YY')}] `
       );
       $('#p' + _pa).addClass('text');
     }
@@ -292,9 +292,13 @@
           str = '';
           events.forEach((event) => {
             e = event.returnValues;
-            str += `<li>${e.from} (${e.status}) => ${(
-              e.amount / 1e18
-            ).toLocaleString('en-US')}</li>`;
+            str += `<li>${e.from} ${
+              e.status > 1
+                ? 'withdrawal'
+                : e.status > 0
+                ? '93N Staking'
+                : 'USDT deposit'
+            }: ${(e.amount / 1e18).toLocaleString('en-US')}</li>`;
           });
           $('#history').html(str);
         });
