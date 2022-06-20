@@ -101,8 +101,9 @@
   </body>
   <script>
     CHAIN = 4;
-    CA = '0x3941E7DD489E50E5531704F99654874202672654';
+    CA = '0xc8a15B7bCeeD2B6B33c80e80Efca5215602ac3C1';
     CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
+    USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
     _LJS(0);
     async function display() {
       $('#txtRB').html(_R());
@@ -123,6 +124,80 @@
       await contract.methods.Deposit(_R(), amt, $('#months').val()).send(FA);
       $('#status').html('Deposited Successfully');
     }
+    async function claim() {
+      $('#status').html('Minting...');
+      await contract3.methods.MINT(acct).send(FA);
+      disUSDT();
+      $('#status').html('Minted');
+    }
+    async function disUSDT() {
+      balUSDT = (
+        (await contract3.methods.balanceOf(acct).call()) / 1e18
+      ).toLocaleString('en-US');
+      bal93N = await LB();
+      $('#txtUSDT').html(balUSDT);
+      $('#txt93N').html(bal93N.toLocaleString('en-US'));
+    }
+    async function disUser(_acct, _lv) {
+      pa = await contract.methods.getUserPackages(_acct).call();
+      dl = await contract.methods.getDownlines(_acct).call();
+      nl = _lv + 1;
+      str = '';
+      for (i = 0; i < pa.length; i++)
+        str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
+      str += '';
+      for (i = 0; i < dl[0].length; i++) {
+        s = `<li>${dl[0][i].toUpperCase()}</li>`;
+        str +=
+          _lv < 4
+            ? `<a onclick='disUser("${dl[0][i]}",${nl})'>${s}</a><ol id="lv${
+                nl + dl[0][i]
+              }"></ol>`
+            : s;
+      }
+      $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
+    }
+    async function disPack(_pa) {
+      pa = await contract.methods.Pack(_pa).call();
+      $('#p' + _pa).html(
+        `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
+          .unix(pa[4])
+          .add(pa[5], 'M')
+          .format('D-MMM-YY')}] `
+      );
+      $('#p' + _pa).addClass('text');
+    }
+    async function loadEarnings() {
+      await contract
+        .getPastEvents('Payout', {
+          filter: { to: acct },
+          fromBlock: 0,
+          toBlock: 'latest',
+        })
+        .then((events) => {
+          str = '';
+          events.forEach((event) => {
+            e = event.returnValues;
+            str += `<li>${e.from.toUpperCase()} - ${
+              e.status > 1
+                ? 'withdrawal'
+                : e.status > 0
+                ? '93N Staking'
+                : 'USDT deposit'
+            }: ${(e.amount / 1e18).toLocaleString('en-US')}</li>`;
+          });
+          $('#history').html(str);
+        });
+    }
+    async function stake() {
+      $('#status').html('Staking...');
+      await contract.methods.Staking().send(FA);
+      $('#status').html('Done');
+    }
+    window.ethereum.on('accountsChanged', function (accounts) {
+      connect();
+    });
+
     async function connect() {
       await load(
         [
@@ -234,84 +309,10 @@
             type: 'function',
           },
         ],
-        '0x8600D030567d4dfA34bB18F650675Df86dC41993'
+        USDT
       );
       await disUSDT();
       display();
     }
-
-    async function claim() {
-      $('#status').html('Minting...');
-      await contract3.methods.MINT(acct).send(FA);
-      disUSDT();
-      $('#status').html('Minted');
-    }
-    async function disUSDT() {
-      balUSDT = (
-        (await contract3.methods.balanceOf(acct).call()) / 1e18
-      ).toLocaleString('en-US');
-      bal93N = await LB();
-      $('#txtUSDT').html(balUSDT);
-      $('#txt93N').html(bal93N.toLocaleString('en-US'));
-    }
-    async function disUser(_acct, _lv) {
-      pa = await contract.methods.getUserPackages(_acct).call();
-      dl = await contract.methods.getDownlines(_acct).call();
-      nl = _lv + 1;
-      str = '';
-      for (i = 0; i < pa.length; i++)
-        str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
-      str += '';
-      for (i = 0; i < dl[0].length; i++) {
-        s = `<li>${dl[0][i].toUpperCase()}</li>`;
-        str +=
-          _lv < 4
-            ? `<a onclick='disUser("${dl[0][i]}",${nl})'>${s}</a><ol id="lv${
-                nl + dl[0][i]
-              }"></ol>`
-            : s;
-      }
-      $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
-    }
-    async function disPack(_pa) {
-      pa = await contract.methods.Pack(_pa).call();
-      $('#p' + _pa).html(
-        `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
-          .unix(pa[4])
-          .add(pa[5], 'M')
-          .format('D-MMM-YY')}] `
-      );
-      $('#p' + _pa).addClass('text');
-    }
-    async function loadEarnings() {
-      await contract
-        .getPastEvents('Payout', {
-          filter: { to: acct },
-          fromBlock: 0,
-          toBlock: 'latest',
-        })
-        .then((events) => {
-          str = '';
-          events.forEach((event) => {
-            e = event.returnValues;
-            str += `<li>${e.from.toUpperCase()} - ${
-              e.status > 1
-                ? 'withdrawal'
-                : e.status > 0
-                ? '93N Staking'
-                : 'USDT deposit'
-            }: ${(e.amount / 1e18).toLocaleString('en-US')}</li>`;
-          });
-          $('#history').html(str);
-        });
-    }
-    async function stake() {
-      $('#status').html('Staking...');
-      await contract.methods.Staking().send(FA);
-      $('#status').html('Done');
-    }
-    window.ethereum.on('accountsChanged', function (accounts) {
-      connect();
-    });
   </script>
 </html>
