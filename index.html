@@ -72,21 +72,20 @@
           Your referral link:
           <a
             id="txtRef"
-            onclick="navigator.clipboard.writeText(document.URL+'#'+$(this).val());$('#status').html('Copied')"
+            onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'#'+$(this).val());$('#status').html('Copied')"
             >Click to copy</a
           >
         </li>
       </ol>
       <h1>Part 3</h1>
       <ol>
-        <li>Your packages details</li>
+        <li>Your packages details - <a onclick="disUser(acct,1)">Here</a></li>
         <ul>
           <li>Amount (wallet)</li>
           <li>Rate</li>
           <li>Last claimed</li>
           <li>Expiry + months</li>
         </ul>
-        <li>Direct downlines: <span id="lv1"></span></li>
         <li>Your earning history</li>
         <ol id="history"></ol>
       </ol>
@@ -237,8 +236,6 @@
         '0x8600D030567d4dfA34bB18F650675Df86dC41993'
       );
       await disUSDT();
-      downlines = await contract.methods.getDownlines(acct).call();
-      for (i = 0; i < 3; i++) $('#lv' + (i + 1)).html(downlines[i].toString());
       display();
       loadEarnings();
     }
@@ -257,9 +254,15 @@
       $('#txtUSDT').html(balUSDT);
       $('#txt93N').html(bal93N.toLocaleString('en-US'));
     }
-    window.ethereum.on('accountsChanged', function (accounts) {
-      connect();
-    });
+    async function disUser(_acct, _lv) {
+      pa = await contract.methods.getUserPackages(_acct).call();
+      dl = await contract.methods.getDownlines(_acct).call();
+      str = '<li>';
+      for (i = 0; i < pa.length; i++)
+        str += `<a onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
+      str += '</li>';
+      $('#lv' + _lv).html(str);
+    }
     async function loadEarnings() {
       await contract
         .getPastEvents('Payout', {
@@ -283,5 +286,8 @@
       await contract.methods.Staking().send(FA);
       $('#status').html('Done');
     }
+    window.ethereum.on('accountsChanged', function (accounts) {
+      connect();
+    });
   </script>
 </html>
