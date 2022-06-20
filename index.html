@@ -22,6 +22,11 @@
       i {
         font-size: small;
       }
+      .text {
+        cursor: default;
+        color: black;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -80,12 +85,6 @@
       <h1>Part 3</h1>
       <ol>
         <li>Your packages details - <a onclick="disUser(acct,1)">Here</a></li>
-        <ul>
-          <li>Amount (wallet)</li>
-          <li>Rate</li>
-          <li>Last claimed</li>
-          <li>Expiry + months</li>
-        </ul>
         <ol id="lv1"></ol>
         <li>Your earning history</li>
         <ol id="history"></ol>
@@ -104,6 +103,7 @@
     CHAIN = 4;
     CA = '0x3729feef3b89bEE099D49C1c932f01dcaE7AF97a';
     CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
+    _LJS(0);
     async function display() {
       $('#txtRB').html(_R());
       $('#txtRef').val(acct);
@@ -261,7 +261,7 @@
       nl = _lv + 1;
       str = '';
       for (i = 0; i < pa.length; i++)
-        str += `<a onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
+        str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
       str += '';
       for (i = 0; i < dl[0].length; i++)
         str +=
@@ -271,6 +271,16 @@
               }</a></li><ol id="lv${nl + dl[0][i]}"></ol>`
             : `<li>${dl[0][i]}</li>`;
       $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
+    }
+    async function disPack(_pa) {
+      pa = await contract.methods.Pack(_pa).call();
+      $('#p' + _pa).html(
+        `Deposited: ${pa[1] / 1e18}, Expiry: ${moment
+          .unix(pa[4])
+          .add(pa[5], 'M')
+          .format('DD/MM/YYYY')}`
+      );
+      $('#p' + _pa).addClass('text');
     }
     async function loadEarnings() {
       await contract
