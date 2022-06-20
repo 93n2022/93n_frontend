@@ -86,12 +86,12 @@
       <ol>
         <li>Your packages details - <a onclick="disUser(acct,1)">Here</a></li>
         <ol id="lv1"></ol>
-        <li>Your earning history</li>
+        <li>Your earning history - <a onclick="loadEarnings()">Here</a></li>
         <ol id="history"></ol>
       </ol>
       <h1>Part 4</h1>
       <ol>
-        <li>Staking test - <a onclick="stake()">click here</a></li>
+        <li>Staking test - <a onclick="stake()">Here</a></li>
       </ol>
       <h1>Part 5</h1>
       <ol>
@@ -238,7 +238,6 @@
       );
       await disUSDT();
       display();
-      loadEarnings();
     }
 
     async function claim() {
