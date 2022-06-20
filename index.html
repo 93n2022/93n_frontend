@@ -262,13 +262,15 @@
       for (i = 0; i < pa.length; i++)
         str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
       str += '';
-      for (i = 0; i < dl[0].length; i++)
+      for (i = 0; i < dl[0].length; i++) {
+        s = `<li>${dl[0][i].toUpperCase()}</li>`;
         str +=
           _lv < 4
-            ? `<li><a onclick='disUser("${dl[0][i]}",${nl})'>${
-                dl[0][i]
-              }</a></li><ol id="lv${nl + dl[0][i]}"></ol>`
-            : `<li>${dl[0][i]}</li>`;
+            ? `<a onclick='disUser("${dl[0][i]}",${nl})'>${s}</a><ol id="lv${
+                nl + dl[0][i]
+              }"></ol>`
+            : s;
+      }
       $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
     }
     async function disPack(_pa) {
@@ -292,7 +294,7 @@
           str = '';
           events.forEach((event) => {
             e = event.returnValues;
-            str += `<li>${e.from} ${
+            str += `<li>${e.from.toUpperCase()} - ${
               e.status > 1
                 ? 'withdrawal'
                 : e.status > 0
