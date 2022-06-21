@@ -123,6 +123,7 @@
       $('#status').html('Depositing...');
       await contract.methods.Deposit(_R(), amt, $('#months').val()).send(FA);
       $('#status').html('Deposited Successfully');
+      disUSDT();
     }
     async function claim() {
       $('#status').html('Minting...');
