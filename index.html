@@ -69,7 +69,7 @@
           <select id="months">
             <option value="3">3</option>
             <option value="6">6</option>
-            <option value="7">9</option>
+            <option value="9">9</option>
           </select>
           months - <a onclick="deposit()">Stake now</a>
         </li>
@@ -86,7 +86,10 @@
       <ol>
         <li>Your packages details - <a onclick="disUser(acct,1)">Here</a></li>
         <ol id="lv1"></ol>
-        <li>Your earning history - <a onclick="loadEarnings('history')">Here</a></li>
+        <li>
+          Your earning history -
+          <a onclick="loadEarnings('history','')">Here</a>
+        </li>
         <ol id="history"></ol>
       </ol>
       <h1>Part 4</h1>
@@ -168,10 +171,11 @@
       );
       $('#p' + _pa).addClass('text');
     }
-    async function loadEarnings(p1) {
+    async function loadEarnings(p1, p2) {
+      f = p2 == '' ? { to: acct } : { to: acct, from: p2 };
       await contract
         .getPastEvents('Payout', {
-          filter: { to: acct },
+          filter: f,
           fromBlock: 0,
           toBlock: 'latest',
         })
@@ -187,7 +191,7 @@
                 : 'USDT deposit'
             }: ${(e.amount / 1e18).toLocaleString('en-US')}</li>`;
           });
-          $('#'+p1).html(str);
+          $('#' + p1).html(str);
         });
     }
     async function stake() {
