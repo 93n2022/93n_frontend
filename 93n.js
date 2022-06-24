@@ -123,9 +123,12 @@ async function xc(p1, p2, p3, p4) {
   amt = ($('#amt' + p3).val() * 1e18).toLocaleString('fullwide', {
     useGrouping: false,
   });
-  //await p4.methods.approve(SWAP, amt).send(FA);
+  $('#status').html('Approving...');
+  await p4.methods.approve(SWAP, amt).send(FA);
+  $('#status').html('Swaping...');
   await contract4.methods.exchange(p1, p2, amt).send(FA);
-  $('#amt' + p3).html('');
+  $('#status').html('Swapped');
+  $('#amt' + p3).val('');
   $('#xc' + p3).html('0');
   disUSDT();
 }
