@@ -27,6 +27,9 @@
         color: black;
         text-decoration: none;
       }
+      input {
+        width: 100px;
+      }
     </style>
   </head>
   <body>
@@ -98,7 +101,17 @@
       </ol>
       <h1>Part 5</h1>
       <ol>
-        <li>Coming soon: LIVE coin price from PanCakeSwap testing</li>
+        <li>
+          Own swap (add / remove liquidity from etherscan) -
+          <a
+            href="https://rinkeby.etherscan.io/address/0x04BE8f4F5a995D1a53a745D02f1C5495a9d49b49#writeContract"
+            target="_blank"
+            >Here</a
+          >
+        </li>
+        <li>USDT: <input id="amt1" onkeypress="$('#amt2').val('hehe')" /></li>
+        <li>93N: <input id="amt2" onkeypress="$('#amt1').val('haha')" /></li>
+        <li><button onclick="">submit</button></li>
       </ol>
     </div>
   </body>
