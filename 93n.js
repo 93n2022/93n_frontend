@@ -31,12 +31,12 @@ async function claim() {
   $('#status').html('Minted');
 }
 async function disUSDT() {
-  balUSDT = (
-    (await contract3.methods.balanceOf(acct).call()) / 1e18
-  ).toLocaleString('en-US');
-  bal93N = await LB();
-  $('#txtUSDT').html(balUSDT);
-  $('#txt93N').html(bal93N.toLocaleString('en-US'));
+  $('#txtUSDT').html(
+    ((await contract3.methods.balanceOf(acct).call()) / 1e18).toLocaleString(
+      'en-US'
+    )
+  );
+  $('#txt93N').html((await LB()).toLocaleString('en-US'));
 }
 async function disUser(_acct, _lv) {
   pa = await contract.methods.getUserPackages(_acct).call();
@@ -118,6 +118,16 @@ async function getPrice(p1, p2, p3) {
       )
       .call()) / 1e18
   );
+}
+async function xc(p1, p2, p3, p4) {
+  amt = ($('#amt' + p3).val() * 1e18).toLocaleString('fullwide', {
+    useGrouping: false,
+  });
+  //await p4.methods.approve(SWAP, amt).send(FA);
+  await contract4.methods.exchange(p1, p2, amt).send(FA);
+  $('#amt' + p3).html('');
+  $('#xc' + p3).html('0');
+  disUSDT();
 }
 window.ethereum.on('accountsChanged', function (accounts) {
   connect();

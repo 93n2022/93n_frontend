@@ -15,11 +15,6 @@
         color: blue;
         text-decoration: underline;
       }
-      input {
-        width: 350px;
-        cursor: pointer;
-        background-color: #eeeeee;
-      }
       i {
         font-size: small;
       }
@@ -112,11 +107,15 @@
         </li>
         <li>
           USDT: <input id="amt1" onkeyup="getPrice(USDT,CA2,1)" />
-          <button>Exchange <b id="xc1">0</b> 93N</button>
+          <button onclick="xc(USDT,CA2,1,contract3)">
+            Exchange <b id="xc1">0</b> 93N
+          </button>
         </li>
         <li>
           93N: <input id="amt2" onkeyup="getPrice(CA2,USDT,2)" />
-          <button>Exchange <b id="xc2">0</b> USDT</button>
+          <button onclick="xc(CA2,USDT,2,contract2)">
+            Exchange <b id="xc2">0</b> USDT
+          </button>
         </li>
       </ol>
     </div>
