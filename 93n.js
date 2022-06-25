@@ -120,11 +120,13 @@ async function getPrice(p1, p2, p3) {
   );
 }
 async function xc(p1, p2, p3, p4) {
-  amt = ($('#amt' + p3).val() * 1e18).toLocaleString('fullwide', {
+  $('#status').html('Approving...');
+  amt = $('#amt' + p3).val() * 1e18;
+  apv = await p4.methods.allowance(acct, SWAP).call();
+  amt = amt.toLocaleString('fullwide', {
     useGrouping: false,
   });
-  $('#status').html('Approving...');
-  await p4.methods.approve(SWAP, amt).send(FA);
+  if (apv < amt) await p4.methods.approve(SWAP, amt).send(FA);
   $('#status').html('Swaping...');
   await contract4.methods.exchange(p1, p2, amt).send(FA);
   $('#status').html('Swapped');
