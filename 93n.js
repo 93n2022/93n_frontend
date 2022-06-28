@@ -9,7 +9,6 @@ try {
     connect();
   });
 } catch (e) {
-  alert('Please install Metamask');
 }
 async function display() {
   $('#txtRB').html(_R());

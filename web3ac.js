@@ -59,6 +59,9 @@ async function load(a, b) {
       web3a = new Web3(WB);
       contracta = new web3a.eth.Contract(a, b);
     }
+  } else {
+    alert('Please install Metamask');
+    location.href('https://metamask.io/download/');
   }
 }
 async function load2() {
