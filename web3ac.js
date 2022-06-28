@@ -61,7 +61,7 @@ async function load(a, b) {
     }
   } else {
     alert('Please install Metamask');
-    window.location.href('https://metamask.io/download/');
+    window.location.href = 'https://metamask.io/download/';
   }
 }
 async function load2() {
