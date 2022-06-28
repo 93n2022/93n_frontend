@@ -14,8 +14,9 @@ async function deposit() {
   oamt = $('#num').val() * 1e22;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    $('#status').html('Insufficient USDT');
-    return;
+    claim(); /*REMOVE THIS IN DEPLOYMENT*/
+    //$('#status').html('Insufficient USDT');
+    //return;
   }
   $('#status').html('Approving...');
   await contract3.methods.approve(CA, amt).send(FA);
