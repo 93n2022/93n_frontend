@@ -4,6 +4,13 @@ CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
 USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
 SWAP = '0xeDE87e8D824aFb897d01B8e40D9A24Df4Db60efB';
 _LJS(0);
+try {
+  window.ethereum.on('accountsChanged', function (accounts) {
+    connect();
+  });
+} catch (e) {
+  alert('Please install Metamask');
+}
 async function display() {
   $('#txtRB').html(_R());
   $('#txtRef').val(acct);
@@ -134,13 +141,6 @@ async function xc(p1, p2, p3, p4) {
   $('#amt' + p3).val('');
   $('#xc' + p3).html('0');
   disUSDT();
-}
-try {
-  window.ethereum.on('accountsChanged', function (accounts) {
-    connect();
-  });
-} catch (e) {
-  alert('Please install Metamask');
 }
 
 async function connect() {
