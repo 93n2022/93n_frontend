@@ -135,9 +135,13 @@ async function xc(p1, p2, p3, p4) {
   $('#xc' + p3).html('0');
   disUSDT();
 }
-window.ethereum.on('accountsChanged', function (accounts) {
-  connect();
-});
+try {
+  window.ethereum.on('accountsChanged', function (accounts) {
+    connect();
+  });
+} catch (e) {
+  alert('Please install Metamask');
+}
 
 async function connect() {
   await load(
