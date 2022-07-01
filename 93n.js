@@ -8,8 +8,7 @@ try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
   });
-} catch (e) {
-}
+} catch (e) {}
 async function display() {
   $('#txtRB').html(_R());
   $('#txtRef').val(acct);
@@ -17,7 +16,7 @@ async function display() {
   $('#connect').hide();
 }
 async function deposit() {
-  oamt = $('#num').val() * 1e22;
+  oamt = $('samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
     claim(); /*REMOVE THIS IN DEPLOYMENT*/
