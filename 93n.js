@@ -16,7 +16,7 @@ async function display() {
   $('#connect').hide();
 }
 async function deposit() {
-  oamt = $('samt').val() * $('#num').val() * 1e18;
+  oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
     claim(); /*REMOVE THIS IN DEPLOYMENT*/
@@ -37,11 +37,8 @@ async function claim() {
   $('#status').html('Minted');
 }
 async function disUSDT() {
-  $('#txtUSDT').html(
-    ((await contract3.methods.balanceOf(acct).call()) / 1e18).toLocaleString(
-      'en-US'
-    )
-  );
+  balUSDT = await contract3.methods.balanceOf(acct).call();
+  $('#txtUSDT').html((balUSDT / 1e18).toLocaleString('en-US'));
   $('#txt93N').html((await LB()).toLocaleString('en-US'));
 }
 async function disUser(_acct, _lv) {
