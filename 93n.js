@@ -2,7 +2,7 @@ CHAIN = 4;
 CA = '0xb7b68363e329e56a5159C978B899c86B3d7303EA';
 CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
 USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
-SWAP = '0x3E6120A26DAfAF085b70f6a697711e7f2faa8ED4';
+SWAP = '0x67BbDa0239e788E08D69ddAE747FA96324eF8586';
 _LJS(0);
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
@@ -261,7 +261,7 @@ async function connect() {
     [
       {
         inputs: [u1, u4],
-        name: 'AmountOut',
+        name: 'getAmountsOut',
         outputs: [u1],
         stateMutability: 'view',
         type: 'function',
@@ -271,13 +271,6 @@ async function connect() {
         name: 'exchange',
         outputs: [],
         stateMutability: 'payable',
-        type: 'function',
-      },
-      {
-        inputs: [u3, u3],
-        name: 'pairs',
-        outputs: [u1],
-        stateMutability: 'view',
         type: 'function',
       },
     ],
