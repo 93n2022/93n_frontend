@@ -14,8 +14,7 @@ try {
   });
 } catch (e) {}
 /***
-Initialisation
-Connect needs try catch in case user no metamask
+Deposit (stake in function)
 ***/
 async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
@@ -32,17 +31,28 @@ async function deposit() {
   $('#status').html('Deposited Successfully');
   disUSDT();
 }
+/***
+TEMP FUNCTION
+Credit in USDT to test
+***/
 async function claim() {
   $('#status').html('Minting...');
   await contract3.methods.MINT(acct).send(FA);
   disUSDT();
   $('#status').html('Minted');
 }
+/***
+Update payment status
+***/
 async function disUSDT() {
   balUSDT = await contract3.methods.balanceOf(acct).call();
   $('#txtUSDT').html((balUSDT / 1e18).toLocaleString('en-US'));
   $('#txt93N').html((await LB()).toLocaleString('en-US'));
 }
+/***
+Display User
+Show the list of downlines
+***/
 async function disUser(_acct, _lv) {
   pa = await contract.methods.getUserPackages(_acct).call();
   dl = await contract.methods.getDownlines(_acct).call();
@@ -65,6 +75,10 @@ async function disUser(_acct, _lv) {
   }
   $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
 }
+/***
+Display Package
+Show the packages owned by downlines
+***/
 async function disPack(_pa) {
   pa = await contract.methods.Pack(_pa).call();
   $('#p' + _pa).html(
@@ -75,6 +89,9 @@ async function disPack(_pa) {
   );
   $('#p' + _pa).addClass('text');
 }
+/***
+Display all user's earning history
+***/
 async function loadEarnings(p1, p2) {
   f = p2 == '' ? { to: acct } : { to: acct, from: p2 };
   arr = [0, 0, 0];
@@ -106,11 +123,19 @@ async function loadEarnings(p1, p2) {
       $('#' + p1).html(str);
     });
 }
+/***
+Stake to credit in all profit
+Anyone can active for everyone
+***/
 async function stake() {
   $('#status').html('Staking...');
   await contract.methods.Staking().send(FA);
   $('#status').html('Done');
 }
+/***
+SWAP FUNCTION
+Update the live price per key up
+***/
 async function getPrice(p1, p2, p3) {
   $('#xc' + p3).html(
     (await contract4.methods
@@ -123,6 +148,10 @@ async function getPrice(p1, p2, p3) {
       .call()) / 1e18
   );
 }
+/***
+SWAP FUNCTION
+Exchange based on the accepted price
+***/
 async function xc(p1, p2, p3, p4) {
   $('#status').html('Approving...');
   amt = $('#amt' + p3).val() * 1e18;
@@ -263,16 +292,16 @@ async function connect() {
     [
       {
         inputs: [u1, u4],
-        name: 'getAmountsOut',
-        outputs: [u1],
-        stateMutability: 'view',
+        name: 'exchange',
+        outputs: [],
+        stateMutability: 'nonpayable',
         type: 'function',
       },
       {
         inputs: [u1, u4],
-        name: 'exchange',
-        outputs: [],
-        stateMutability: 'payable',
+        name: 'getAmountsOut',
+        outputs: [u1],
+        stateMutability: 'view',
         type: 'function',
       },
     ],
