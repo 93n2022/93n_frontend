@@ -2,7 +2,7 @@ CHAIN = 4;
 CA = '0xb7b68363e329e56a5159C978B899c86B3d7303EA';
 CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
 USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
-SWAP = '0xeDE87e8D824aFb897d01B8e40D9A24Df4Db60efB';
+SWAP = '0x3E6120A26DAfAF085b70f6a697711e7f2faa8ED4';
 _LJS(0);
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
@@ -112,12 +112,11 @@ async function stake() {
 async function getPrice(p1, p2, p3) {
   $('#xc' + p3).html(
     (await contract4.methods
-      .getPrice(
-        p1,
-        p2,
+      .AmountOut(
         ($('#amt' + p3).val() * 1e18).toLocaleString('fullwide', {
           useGrouping: false,
-        })
+        }),
+        [p1, p2]
       )
       .call()) / 1e18
   );
@@ -131,7 +130,7 @@ async function xc(p1, p2, p3, p4) {
   });
   if (apv < amt) await p4.methods.approve(SWAP, amt).send(FA);
   $('#status').html('Swaping...');
-  await contract4.methods.exchange(p1, p2, amt).send(FA);
+  await contract4.methods.exchange(amt, [p1, p2]).send(FA);
   $('#status').html('Swapped');
   $('#amt' + p3).val('');
   $('#xc' + p3).html('0');
@@ -261,21 +260,21 @@ async function connect() {
   contract4 = new web3.eth.Contract(
     [
       {
-        inputs: [u3, u3, u1],
+        inputs: [u1, u4],
+        name: 'AmountOut',
+        outputs: [u1],
+        stateMutability: 'view',
+        type: 'function',
+      },
+      {
+        inputs: [u1, u4],
         name: 'exchange',
         outputs: [],
         stateMutability: 'payable',
         type: 'function',
       },
       {
-        inputs: [u3, u3, u1],
-        name: 'getPrice',
-        outputs: [u1],
-        stateMutability: 'view',
-        type: 'function',
-      },
-      {
-        inputs: [u3, u3, u1],
+        inputs: [u3, u3],
         name: 'pairs',
         outputs: [u1],
         stateMutability: 'view',
