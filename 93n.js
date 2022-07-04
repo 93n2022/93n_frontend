@@ -114,7 +114,7 @@ async function stake() {
 async function getPrice(p1, p2, p3) {
   $('#xc' + p3).html(
     (await contract4.methods
-      .AmountOut(
+      .getAmountsOut(
         ($('#amt' + p3).val() * 1e18).toLocaleString('fullwide', {
           useGrouping: false,
         }),
