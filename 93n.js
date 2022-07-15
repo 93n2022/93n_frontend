@@ -25,7 +25,8 @@ async function deposit() {
     //return;
   }
   $('#status').html('Approving...');
-  await contract3.methods.approve(CA, amt).send(FA);
+  appr = await contract3.methods.allowance(acct, CA).call();
+  if (appr < amt) await contract3.methods.approve(CA, amt).send(FA);
   $('#status').html('Depositing...');
   await contract.methods.Deposit(_R(), amt, $('#months').val()).send(FA);
   $('#status').html('Deposited Successfully');
