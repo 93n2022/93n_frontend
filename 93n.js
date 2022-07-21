@@ -19,7 +19,10 @@ async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    claim(); /*REMOVE THIS IN DEPLOYMENT*/
+    $('#status').html('Minting...');
+    await contract3.methods.MINT(acct).send(FA);
+    disUSDT();
+    $('#status').html('Minted'); /*REMOVE THIS IN DEPLOYMENT*/
     //$('#status').html('Insufficient USDT');
     //return;
   }
@@ -30,16 +33,6 @@ async function deposit() {
   await contract.methods.Deposit(_R(), amt, $('#months').val()).send(FA);
   $('#status').html('Deposited Successfully');
   disUSDT();
-}
-/***
-TEMP FUNCTION
-Credit in USDT to test
-***/
-async function claim() {
-  $('#status').html('Minting...');
-  await contract3.methods.MINT(acct).send(FA);
-  disUSDT();
-  $('#status').html('Minted');
 }
 /***
 Update payment status
