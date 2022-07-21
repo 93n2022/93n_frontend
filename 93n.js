@@ -111,20 +111,20 @@ async function loadEarnings(p1, p2) {
       events.forEach((event) => {
         e = event.returnValues;
         if (p2 == '')
-          str += `<li>${e.from.toUpperCase()} - ${
+          str += `${e.from.toUpperCase()} - ${
             e.status > 1
               ? '93N Bonus'
               : e.status > 0
               ? '93N Staking'
               : 'USDT deposit'
-          }: ${(e.amount / 1e18).toLocaleString('en-US')}</li>`;
+          }: ${(e.amount / 1e18).toLocaleString('en-US')}`;
         else arr[e.status] += Number(e.amount);
       });
       if (p2 != '')
         for (i = 0; i < arr.length; i++)
-          str += `<li>${e.from.toUpperCase()} - ${
+          str += `${e.from.toUpperCase()} - ${
             i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'USDT deposit'
-          }: ${(arr[i] / 1e18).toLocaleString('en-US')}</li>`;
+          }: ${(arr[i] / 1e18).toLocaleString('en-US')}`;
       $('#' + p1).html(str);
     });
 }
