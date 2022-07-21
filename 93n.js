@@ -7,7 +7,6 @@ CA = '0xb7b68363e329e56a5159C978B899c86B3d7303EA';
 CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
 USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
 SWAP = '0xb84B565eFcb9f86c81ce7964c6f88E2987332160';
-_LJS(0);
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();

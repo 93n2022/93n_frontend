@@ -8,22 +8,7 @@ u4 = { internalType: ub + u0, name: '', type: ub + u0 };
 uc = 'string';
 u5 = { internalType: uc, name: '', type: uc };
 u6 = { internalType: uc + u0, name: '', type: uc + u0 };
-IA = { host: 'ipfs.infura.io', port: 5001, protocol: 'https' };
-JS = { 0: 'https://93n2022.github.io/js/moment.min.js' };
-function waitTxt(a, b) {
-  $('#' + b).html(a > 0 ? 'Loading...' : '');
-}
-function formatURL(u) {
-  if (u.includes('ipfs://') && u.length > 9)
-    u = u.replace('ipfs://', 'https://ipfs.io/ipfs/');
-  else if (
-    /^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/.test(
-      u
-    )
-  );
-  else u = '';
-  return u;
-}
+IA = { host: 'ipfs.infura.io', port: 5001, protocol: 'https' };\
 function _R() {
   _s = location.hash.substring(1).toLowerCase();
   return _s.length > 1 && _s != acct.toLowerCase()
@@ -32,9 +17,6 @@ function _R() {
 }
 async function LB() {
   return (await contract2.methods.balanceOf(acct).call()) / 1e18;
-}
-async function _LJS(a) {
-  $.getScript(JS[a]);
 }
 async function load(a, b) {
   if (typeof CS != 'undefined')
