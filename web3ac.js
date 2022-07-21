@@ -92,36 +92,3 @@ async function load2() {
     CA2
   );
 }
-function ran(p) {
-  return Math.floor(Math.random() * p);
-}
-async function uploadImg(i) {
-  pro = await new Promise((d) => {
-    b64 = atob(
-      document.getElementById(`can${i}`).toDataURL('image/png').split(',')[1]
-    );
-    n = b64.length;
-    u8 = new Uint8Array(n);
-    reader = new FileReader();
-    reader.onloadend = () => {
-      ipfs.add(ipfs.Buffer.from(reader.result)).then((files) => {
-        d(files);
-      });
-    };
-    while (n--) u8[n] = b64.charCodeAt(n);
-    reader.readAsArrayBuffer(new File([u8], ''));
-  });
-  return pro[0].hash;
-}
-async function uploadJson(p) {
-  pro = await new Promise((d) => {
-    reader = new FileReader();
-    reader.onloadend = () => {
-      ipfs.add(ipfs.Buffer.from(reader.result)).then((files) => {
-        d(files);
-      });
-    };
-    reader.readAsArrayBuffer(new File([p], 'application/json'));
-  });
-  return pro[0].hash;
-}
