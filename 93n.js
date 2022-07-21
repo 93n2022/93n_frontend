@@ -68,7 +68,7 @@ async function disUser(_acct, _lv) {
   str +=
     _acct == acct
       ? ''
-      : `<a onclick='loadEarnings("history","${_acct}")'>[Load earnings]</a>`;
+      : `<a onclick='loadEarnings("history","${_acct}")'>[Earnings from this downline]</a>`;
   for (i = 0; i < dl[0].length; i++) {
     s = `<li>${dl[0][i]}</li>`;
     str +=
