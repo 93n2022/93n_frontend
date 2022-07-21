@@ -7,6 +7,16 @@ CA = '0xb7b68363e329e56a5159C978B899c86B3d7303EA';
 CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
 USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
 SWAP = '0xb84B565eFcb9f86c81ce7964c6f88E2987332160';
+u0 = '[]';
+ua = 'uint256';
+u1 = { internalType: ua, name: '', type: ua };
+u2 = { internalType: ua + u0, name: '', type: ua + u0 };
+ub = 'address';
+u3 = { internalType: ub, name: '', type: ub };
+u4 = { internalType: ub + u0, name: '', type: ub + u0 };
+uc = 'string';
+u5 = { internalType: uc, name: '', type: uc };
+u6 = { internalType: uc + u0, name: '', type: uc + u0 };
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
@@ -160,6 +170,21 @@ async function xc(p1, p2, p3, p4) {
   $('#amt' + p3).val('');
   $('#xc' + p3).html('0');
   disUSDT();
+}
+/***
+Get referral link
+***/
+function _R() {
+  _s = location.hash.substring(1).toLowerCase();
+  return _s.length > 1 && _s != acct.toLowerCase()
+    ? _s
+    : '0x0000000000000000000000000000000000000000';
+}
+/***
+Get 93N token
+***/
+async function LB() {
+  return (await contract2.methods.balanceOf(acct).call()) / 1e18;
 }
 /***
 Base wallet function

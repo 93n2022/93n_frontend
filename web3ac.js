@@ -1,23 +1,5 @@
-u0 = '[]';
-ua = 'uint256';
-u1 = { internalType: ua, name: '', type: ua };
-u2 = { internalType: ua + u0, name: '', type: ua + u0 };
-ub = 'address';
-u3 = { internalType: ub, name: '', type: ub };
-u4 = { internalType: ub + u0, name: '', type: ub + u0 };
-uc = 'string';
-u5 = { internalType: uc, name: '', type: uc };
-u6 = { internalType: uc + u0, name: '', type: uc + u0 };
-IA = { host: 'ipfs.infura.io', port: 5001, protocol: 'https' };\
-function _R() {
-  _s = location.hash.substring(1).toLowerCase();
-  return _s.length > 1 && _s != acct.toLowerCase()
-    ? _s
-    : '0x0000000000000000000000000000000000000000';
-}
-async function LB() {
-  return (await contract2.methods.balanceOf(acct).call()) / 1e18;
-}
+
+
 async function load(a, b) {
   if (typeof CS != 'undefined')
     $('head').append(
