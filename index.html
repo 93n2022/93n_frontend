@@ -30,26 +30,25 @@
   </head>
   <body>
     <a id="connect" onclick="connect()">Connect</a>
+    <h1>Dashboard</h1>
     <div id="root" class="hide">
-      <h1>Part 1</h1>
+      <i id="status">Status...</i>
       <ol>
-        <li><i id="status">Status...</i></li>
-        <li>Connect to Rinkeby Test Network</li>
-        <li>
-          Get test token from faucet as gas fee -
-          <a href="https://rinkebyfaucet.com/" target="_blank">Here</a>
-        </li>
         <li>
           Claim MOCK-USDT to deposit -
           <a onclick="claim()">Here</a>
         </li>
-        <li>Your USDT Token: <span id="txtUSDT"></span></li>
-        <li>Your 93N Token: <span id="txt93N"></span></li>
-      </ol>
-      <h1>Part 2</h1>
-      <ol>
-        <li>Referred by: <span id="txtRB"></span></li>
-        <li>Approval to transfer USDT to contract.</li>
+        <li>
+          USDT: <span id="txtUSDT"></span> ||| 93N: <span id="txt93N"></span>
+        </li>
+        <li>
+          Referred by: <span id="txtRB"></span> ||| Your referral link:
+          <a
+            id="txtRef"
+            onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'#'+$(this).val());$('#status').html('Copied')"
+            >Click to copy</a
+          >
+        </li>
         <li>
           <select id="samt">
             <option value="100">100</option>
@@ -76,17 +75,6 @@
           </select>
           months - <a onclick="deposit()">Stake now</a>
         </li>
-        <li>
-          Your referral link:
-          <a
-            id="txtRef"
-            onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'#'+$(this).val());$('#status').html('Copied')"
-            >Click to copy</a
-          >
-        </li>
-      </ol>
-      <h1>Part 3</h1>
-      <ol>
         <li>Your packages details - <a onclick="disUser(acct,1)">Here</a></li>
         <ol id="lv1"></ol>
         <li>
@@ -94,12 +82,9 @@
           <a onclick="loadEarnings('history','')">Here</a>
         </li>
         <ol id="history"></ol>
-      </ol>
-      <h1>Part 4</h1>
-      <ol>
         <li>Staking for all <a onclick="stake()">Here</a></li>
       </ol>
-      <h1>Part 5</h1>
+      <h1>SWAP</h1>
       <ol>
         <li>
           Own swap (add / remove liquidity from etherscan) -
