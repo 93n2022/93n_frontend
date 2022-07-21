@@ -64,16 +64,13 @@
         <option value="9">9</option>
       </select>
       months <button id="stakeBtn" onclick="deposit()">Stake</button><br />
-      <button onclick="disUser(acct,1)">Your packages details</button>
+      <button onclick="disUser(acct,1)">Your packages details</button><br />
+      <button onclick="loadEarnings('history','')">Earning history</button>
       <p id="lv1"></p>
       <ol>
-        <li>
-          Your earning history -
-          <a onclick="loadEarnings('history','')">Here</a>
-        </li>
-        <ol id="history"></ol>
         <li>Staking for all <a onclick="stake()">Here</a></li>
       </ol>
+      <textarea id="history"></textarea>
       <h1>SWAP</h1>
       <ol>
         <li>

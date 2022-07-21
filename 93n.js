@@ -29,21 +29,21 @@ async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    $("#stakeBtn").html('Minting...');
+    $('#stakeBtn').html('Minting...');
     await contract3.methods.MINT(acct).send({ from: acct });
     disUSDT();
-    $("#stakeBtn").html('Minted'); /*REMOVE THIS IN DEPLOYMENT*/
+    $('#stakeBtn').html('Minted'); /*REMOVE THIS IN DEPLOYMENT*/
     //$(this).html('Insufficient USDT');
     //return;
   }
-  $("#stakeBtn").html('Approving...');
+  $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, CA).call();
   if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
-  $("#stakeBtn").html('Staking...');
+  $('#stakeBtn').html('Staking...');
   await contract.methods
     .Deposit(_R(), amt, $('#months').val())
     .send({ from: acct });
-  $("#stakeBtn").html('Staked Successfully');
+  $('#stakeBtn').html('Staked Successfully');
   disUSDT();
 }
 /***
