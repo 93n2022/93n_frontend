@@ -43,7 +43,6 @@
       <b id="txtUSDT"></b> USDT / <b id="txt93N"></b> 93N<br /><br />
       Upline: <b id="txtRB"></b> / Your referral link:
       <button
-        id="txtRef"
         onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'?#'+acct);$(this).html('Copied')"
       >
         Click to copy</button
@@ -74,7 +73,10 @@
       months <button id="stakeBtn" onclick="deposit()">Stake</button
       ><br /><br />
       <button onclick="disUser(acct,1)">View package & downline</button> /
-      <button onclick="loadEarnings('history','')">View all earning history</button> /
+      <button onclick="loadEarnings('history','')">
+        View all earning history
+      </button>
+      /
       <button id="withBtn" onclick="stake()">Withdraw for all</button>
       <ol id="lv1"></ol>
       <textarea id="history" readonly></textarea>
