@@ -70,7 +70,7 @@ async function disUser(_acct, _lv) {
       ? ''
       : `<a onclick='loadEarnings("history","${_acct}")'>[Load earnings]</a>`;
   for (i = 0; i < dl[0].length; i++) {
-    s = `<li>${dl[0][i].toUpperCase()}</li>`;
+    s = `<li>${dl[0][i]}</li>`;
     str +=
       _lv < 4
         ? `<a onclick='disUser("${dl[0][i]}",${nl})'>${s}</a><ol id="lv${
@@ -86,13 +86,12 @@ Show the packages owned by downlines
 ***/
 async function disPack(_pa) {
   pa = await contract.methods.Pack(_pa).call();
-  $('#p' + _pa).html(
+  $('#history').html(
     `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
       .unix(pa[4])
       .add(pa[5], 'M')
       .format('D-MMM-YY')}] `
   );
-  $('#p' + _pa).addClass('text');
 }
 /***
 Display all user's earning history
