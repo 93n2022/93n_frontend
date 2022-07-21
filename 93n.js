@@ -64,7 +64,7 @@ async function disUser(_acct, _lv) {
   nl = _lv + 1;
   str = '';
   for (i = 0; i < pa.length; i++)
-    str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a> `;
+    str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a><br>`;
   str +=
     _acct == acct
       ? ''
