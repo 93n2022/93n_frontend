@@ -39,11 +39,11 @@ async function deposit() {
   $("#stakeBtn").html('Approving...');
   appr = await contract3.methods.allowance(acct, CA).call();
   if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
-  $("#stakeBtn").html('Depositing...');
+  $("#stakeBtn").html('Staking...');
   await contract.methods
     .Deposit(_R(), amt, $('#months').val())
     .send({ from: acct });
-  $("#stakeBtn").html('Deposited Successfully');
+  $("#stakeBtn").html('Staked Successfully');
   disUSDT();
 }
 /***

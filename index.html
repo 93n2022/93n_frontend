@@ -5,7 +5,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="web3ac.js"></script>
     <script src="93n.js"></script>
     <style>
       html,
@@ -15,16 +14,10 @@
       .hide {
         display: none;
       }
-      i {
-        font-size: small;
-      }
-      .text {
-        cursor: default;
-        color: black;
-        text-decoration: none;
-      }
-      input {
-        width: 100px;
+      a {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -39,8 +32,8 @@
     <div id="root" class="hide">
       <h1>Dashboard</h1>
       <i id="status">Status...</i><br />
-      <b>USDT</b> <a id="txtUSDT"></a> / <b>93N</b> <a id="txt93N"></a><br />
-      Referred by: <span id="txtRB"></span> / Your referral link:
+      <b id="txtUSDT"></b> USDT / <b id="txt93N"></b> 93N<br />
+      Upline: <b id="txtRB"></b> / Your referral link:
       <button
         id="txtRef"
         onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'?#'+acct);$(this).html('Copied')"
@@ -71,9 +64,9 @@
         <option value="9">9</option>
       </select>
       months <button id="stakeBtn" onclick="deposit()">Stake</button><br />
+      <button onclick="disUser(acct,1)">Your packages details</button>
+      <p id="lv1"></p>
       <ol>
-        <li>Your packages details - <a onclick="disUser(acct,1)">Here</a></li>
-        <ol id="lv1"></ol>
         <li>
           Your earning history -
           <a onclick="loadEarnings('history','')">Here</a>
