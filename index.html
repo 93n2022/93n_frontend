@@ -20,7 +20,7 @@
         cursor: pointer;
       }
       textarea {
-        width: 800px;
+        width: 650px;
         height: 300px;
       }
     </style>
@@ -35,15 +35,15 @@
     </button>
     <div id="root" class="hide">
       <h1>Dashboard</h1>
-      <i id="status">Status...</i><br />
-      <b id="txtUSDT"></b> USDT / <b id="txt93N"></b> 93N<br />
+      <i id="status">Status...</i><br /><br />
+      <b id="txtUSDT"></b> USDT / <b id="txt93N"></b> 93N<br /><br />
       Upline: <b id="txtRB"></b> / Your referral link:
       <button
         id="txtRef"
         onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'?#'+acct);$(this).html('Copied')"
       >
         Click to copy</button
-      ><br />
+      ><br /><br />
       <select id="samt">
         <option value="100">100</option>
         <option value="1000">1,000</option>
@@ -67,14 +67,15 @@
         <option value="6">6</option>
         <option value="9">9</option>
       </select>
-      months <button id="stakeBtn" onclick="deposit()">Stake</button><br />
-      <button onclick="disUser(acct,1)">Your packages details</button><br />
-      <button onclick="loadEarnings('history','')">Earning history</button>
+      months <button id="stakeBtn" onclick="deposit()">Stake</button
+      ><br /><br />
+      <button onclick="disUser(acct,1)">Your packages details</button
+      ><br /><br />
+      <button onclick="loadEarnings('history','')">Earning history</button
+      ><br /><br />
+      <button id="withBtn" onclick="stake()">Withdraw for all</button>
       <p id="lv1"></p>
-      <ol>
-        <li>Staking for all <a onclick="stake()">Here</a></li>
-      </ol>
-      <textarea id="history"></textarea>
+      <textarea id="history" readonly></textarea>
       <h1>SWAP</h1>
       <ol>
         <li>

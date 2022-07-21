@@ -117,14 +117,14 @@ async function loadEarnings(p1, p2) {
               : e.status > 0
               ? '93N Staking'
               : 'USDT deposit'
-          }: ${(e.amount / 1e18)}&#10;`;
+          }: ${e.amount / 1e18}&#10;`;
         else arr[e.status] += Number(e.amount);
       });
       if (p2 != '')
         for (i = 0; i < arr.length; i++)
           str += `${e.from.toUpperCase()} - ${
             i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'USDT deposit'
-          }: ${(arr[i] / 1e18)}&#10;`;
+          }: ${arr[i] / 1e18}&#10;`;
       $('#' + p1).html(str);
     });
 }
@@ -133,9 +133,9 @@ Stake to credit in all profit
 Anyone can active for everyone
 ***/
 async function stake() {
-  $('#status').html('Staking...');
+  $('#withBtn').html('Withdrawing...');
   await contract.methods.Staking().send({ from: acct });
-  $('#status').html('Done');
+  $('#withBtn').html('Withdrawn');
 }
 /***
 SWAP FUNCTION
