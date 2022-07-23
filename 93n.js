@@ -28,6 +28,9 @@ Deposit (stake in function)
 async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
+  gasEstimate = await contract.methods
+    .Deposit(_R(), amt, $('#months').val())
+    .estimateGas({ from: acct });
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
     await contract3.methods.MINT(acct).send({ from: acct });
