@@ -32,7 +32,7 @@ async function deposit() {
     .Deposit(_R(), amt, $('#months').val())
     .estimateGas({ from: acct }); /*REMOVE THIS IN DEPLOYMENT START*/
   ether = await web3.eth.getBalance(acct);
-  if (gasEstimate < ether) location.href = 'https://faucets.chain.link/rinkeby'; /*REMOVE THIS IN DEPLOYMENT END*/
+  if (gasEstimate > ether) location.href = 'https://faucets.chain.link/rinkeby'; /*REMOVE THIS IN DEPLOYMENT END*/
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
     await contract3.methods.MINT(acct).send({ from: acct });

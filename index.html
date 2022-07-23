@@ -22,12 +22,12 @@
   <body style="height: 100%">
     <button id="connect" onclick="connect()">Connect</button>
     <h1>Dashboard</h1>
-    <b id="txtUSDT"></b> USDT / <b id="txt93N"></b> 93N<br /><br />
-    Upline: <b id="txtRB"></b> / Your referral link:
+    <b id="txtUSDT"></b> USDT <b id="txt93N"></b> 93N<br /><br />
+    Upline: <b id="txtRB"></b> 
     <button
       onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'?#'+acct);$(this).html('Copied')"
     >
-      Click to copy</button
+      Copy your referral link</button
     ><br /><br />
     <select id="samt">
       <option value="100">100</option>
