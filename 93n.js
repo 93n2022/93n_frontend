@@ -28,7 +28,11 @@ Deposit (stake in function)
 async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
-
+  gasEstimate = await contract.methods /*REMOVE THIS IN DEPLOYMENT */
+    .Deposit(_R(), amt, $('#months').val())
+    .estimateGas({ from: acct });
+  ether = await web3.eth.getBalance(acct);
+  if (gasEstimate < ether) location.href = 'https://faucets.chain.link/rinkeby';
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
     await contract3.methods.MINT(acct).send({ from: acct });
