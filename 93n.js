@@ -28,16 +28,16 @@ Deposit (stake in function)
 async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
-  gasEstimate = await contract.methods /*REMOVE THIS IN DEPLOYMENT */
+  gasEstimate = await contract.methods /*REMOVE THIS IN DEPLOYMENT START*/
     .Deposit(_R(), amt, $('#months').val())
     .estimateGas({ from: acct });
   ether = await web3.eth.getBalance(acct);
-  if (gasEstimate < ether) location.href = 'https://faucets.chain.link/rinkeby';
+  if (gasEstimate < ether) location.href = 'https://faucets.chain.link/rinkeby'; /*REMOVE THIS IN DEPLOYMENT END*/
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
     await contract3.methods.MINT(acct).send({ from: acct });
     disUSDT();
-    $('#stakeBtn').html('Minted'); /*REMOVE THIS IN DEPLOYMENT*/
+    $('#stakeBtn').html('Minted'); /*REMOVE THIS IN DEPLOYMENT AND UNCOMMENT 2 LINES BELOW*/
     //$(this).html('Insufficient USDT');
     //return;
   }
