@@ -385,7 +385,4 @@ async function connect() {
   );
   await disUSDT();
   $('#txtRB').html(_R());
-  $('#txtRef').val(acct);
-  $('#root').show();
-  $('#connect').hide();
 }
