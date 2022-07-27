@@ -2,7 +2,7 @@
 Initialisation
 Connect needs try catch in case user no metamask
 ***/
-CHAIN = 4;
+CHAIN = 56;
 CA = '0xb7b68363e329e56a5159C978B899c86B3d7303EA';
 CA2 = '0x3Dd793f919bf90c4B449DCdEdc650B970F8d9719';
 USDT = '0x8600D030567d4dfA34bB18F650675Df86dC41993';
@@ -208,7 +208,7 @@ async function connect() {
     if ((await web3.eth.net.getId()) != CHAIN) {
       await ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x' + CHAIN }],
+        params: [{ chainId: '0x' + CHAIN.toString(16) }],
       });
     }
     contract = new web3.eth.Contract(
