@@ -3,7 +3,7 @@ Initialisation
 Connect needs try catch in case user no metamask
 ***/
 CHAIN = 97;
-CA = '0x4C3dcf25838D5F608Ace1d4Bbd196Ef21C3c7163';
+CA = '0x91C99bcbdEa049e2Aa979C97a9325852874Ac913';
 CA2 = '0x8bA24A6b1BeA1F8389F7c7a2fEedbb562E9462dB';
 USDT = '0x845fCa94Bf06363B7cC4BF4cF4bcA6498Ceebbec';
 SWAP = '0xf0A13c0Ff348ac6461455af2B50Ac1ea751D22d0';
