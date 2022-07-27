@@ -2,11 +2,11 @@
 Initialisation
 Connect needs try catch in case user no metamask
 ***/
-CHAIN = 56;
-CA = '0x882c2b6De04ccD0C92F356a46C1De5fE749206c4';
-CA2 = '0x4432DD2bA748ce31EF4560b901F0B6E7E69d7F6d';
-USDT = '0xdb7e382D379A6e0b7A624B40AB6a71ea0D2998f4';
-SWAP = '0xb90c4aC1d451bf00a91DdE4450BC90D27bE418dE';
+CHAIN = 97;
+CA = '0x4C3dcf25838D5F608Ace1d4Bbd196Ef21C3c7163';
+CA2 = '0x59aD53a57D8A6988340F61b2aE0a8404a4d08277';
+USDT = '0x845fCa94Bf06363B7cC4BF4cF4bcA6498Ceebbec';
+SWAP = '0xf0A13c0Ff348ac6461455af2B50Ac1ea751D22d0';
 u0 = '[]';
 ua = 'uint256';
 u1 = { internalType: ua, name: '', type: ua };
