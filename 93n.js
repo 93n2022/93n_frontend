@@ -105,7 +105,7 @@ async function loadEarnings(p1, p2) {
   await contract
     .getPastEvents('Payout', {
       filter: f,
-      fromBlock: 0,
+      fromBlock: (await web3.eth.getBlockNumber()) - 4999,
       toBlock: 'latest',
     })
     .then((events) => {
