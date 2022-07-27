@@ -195,12 +195,6 @@ Base wallet function
 With ABI
 ***/
 async function connect() {
-  if (typeof CS != 'undefined')
-    $('head').append(
-      $(
-        '<meta name="viewport"content="width=device-width,initial-scale=1.0"><link rel="stylesheet">'
-      ).attr('href', CS)
-    );
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
     acct = await ethereum.request({ method: 'eth_requestAccounts' });
