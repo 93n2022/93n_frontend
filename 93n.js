@@ -100,6 +100,8 @@ async function disPack(_pa) {
 Display all user's earning history
 ***/
 async function loadEarnings(p1, p2) {
+  p1 = '#' + p1;
+  $(p1).html('Fetching...');
   f = p2 == '' ? { to: acct } : { to: acct, from: p2 };
   arr = [0, 0, 0];
   await contract
@@ -127,7 +129,7 @@ async function loadEarnings(p1, p2) {
           str += `${e.from.toUpperCase()} - ${
             i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'USDT deposit'
           }: ${arr[i] / 1e18}&#10;`;
-      $('#' + p1).html(str);
+      $(p1).html(str);
     });
 }
 /***
