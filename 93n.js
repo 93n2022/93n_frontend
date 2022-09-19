@@ -50,7 +50,9 @@ try {
 Deposit (stake in function)
 */
 async function deposit() {
-  oamt = $('#samt').val() * $('#num').val() * 1e18;
+  v = $('#dNode').val();
+  w = $('#dNum').val();
+  oamt = v < 3 ? 100 : v < 3 ? 1000 : 10000 * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
@@ -66,9 +68,7 @@ async function deposit() {
   appr = await contract3.methods.allowance(acct, CA).call();
   if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
   $('#stakeBtn').html('Staking...');
-  await contract.methods
-    .Purchase(_R(), amt, $('#dNode').val())
-    .send({ from: acct });
+  await contract.methods.Purchase(_R(), v, w).send({ from: acct });
   $('#stakeBtn').html('Staked Successfully');
   disUSDT();
 }
