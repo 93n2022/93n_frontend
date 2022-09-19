@@ -67,7 +67,7 @@ async function deposit() {
   if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
   $('#stakeBtn').html('Staking...');
   await contract.methods
-    .Deposit(_R(), amt, $('#months').val())
+    .Purchase(_R(), amt, $('#dNode').val())
     .send({ from: acct });
   $('#stakeBtn').html('Staked Successfully');
   disUSDT();
@@ -234,70 +234,84 @@ async function connect() {
     contract = new web3.eth.Contract(
       [
         {
-          inputs: [u3, u1, u1],
-          name: 'Deposit',
+          inputs: [u2],
+          name: 'Merging',
           outputs: [],
-          stateMutability: 'nonpayable',
-          type: 'function',
+          stateMutability: un,
+          type: uf,
         },
         {
           anonymous: false,
           inputs: [
             {
               indexed: true,
-              internalType: 'address',
+              internalType: ub,
               name: 'from',
-              type: 'address',
+              type: ub,
             },
             {
               indexed: true,
-              internalType: 'address',
+              internalType: ub,
               name: 'to',
-              type: 'address',
+              type: ub,
             },
             {
               indexed: false,
-              internalType: 'uint256',
+              internalType: ua,
               name: 'amount',
-              type: 'uint256',
+              type: ua,
             },
             {
               indexed: true,
-              internalType: 'uint256',
+              internalType: ua,
               name: 'status',
-              type: 'uint256',
+              type: ua,
             },
           ],
           name: 'Payout',
           type: 'event',
         },
         {
-          inputs: [],
-          name: 'Staking',
+          inputs: [u3, u1, u1],
+          name: 'Purchase',
           outputs: [],
-          stateMutability: 'nonpayable',
-          type: 'function',
+          stateMutability: un,
+          type: uf,
+        },
+        {
+          inputs: [u1],
+          name: 'RenewSuperNode',
+          outputs: [],
+          stateMutability: un,
+          type: uf,
+        },
+        {
+          inputs: [],
+          name: 'Withdraw',
+          outputs: [],
+          stateMutability: un,
+          type: uf,
         },
         {
           inputs: [u3],
           name: 'getDownlines',
           outputs: [u4, u1, u1],
-          stateMutability: 'view',
-          type: 'function',
+          stateMutability: uv,
+          type: uf,
         },
         {
-          inputs: [u3],
-          name: 'getUserPackages',
-          outputs: [u2],
-          stateMutability: 'view',
+          inputs: [],
+          name: 'getNodes',
+          outputs: [u2, u2],
+          stateMutability: uv,
           type: 'function',
         },
         {
           inputs: [u1],
-          name: 'Pack',
-          outputs: [u1, u1, u1, u1, u1, u1, u3],
-          stateMutability: 'view',
-          type: 'function',
+          name: 'pack',
+          outputs: [u1, u1, u1, u1, u3],
+          stateMutability: uv,
+          type: uf,
         },
       ],
       CA
