@@ -23,48 +23,33 @@
     <button id="connect" onclick="connect()">Connect</button>
     <h1>Dashboard</h1>
     <b id="txtUSDT"></b> USDT <b id="txt93N"></b> 93N<br /><br />
-    Upline: <b id="txtRB"></b> 
+    Upline: <b id="txtRB"></b>
     <button
       onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'?#'+acct);$(this).html('Copied')"
     >
       Copy your referral link</button
     ><br /><br />
-    <select id="samt">
-      <option value="100">100</option>
-      <option value="1000">1,000</option>
-      <option value="10000">10,000</option>
+    <select id="dNode">
+      <option value="0">Club node</option>
+      <option value="3">Super node</option>
+      <option value="4">Asset node</option>
     </select>
-    <select id="num">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-    in
-    <select id="months">
-      <option value="3">3</option>
-      <option value="6">6</option>
-      <option value="9">9</option>
-    </select>
-    months <button id="stakeBtn" onclick="deposit()">Stake</button><br /><br />
+    <input id="dNum" type="number" value="1" />
+    <button id="stakeBtn" onclick="deposit()">Purchase</button><br /><br />
+    <div id="clubNodes">DISPLAY ALL CLUB NODES HERE (selectable)</div>
+    <button>Merge (display only if there is node)</button><br /><br />
     <button onclick="disUser(acct,1)">View package & downline</button> /
     <button onclick="loadEarnings('history','')">
       View all earning history
     </button>
     /
-    <button id="withBtn" onclick="stake()">Withdraw for all</button>
+    <button id="withBtn" onclick="stake()">Withdraw</button>
     <ol id="lv1"></ol>
     <textarea id="history" rows="25" cols="100" readonly></textarea>
 
     <h1>SWAP</h1>
     <a
-      href="https://rinkeby.etherscan.io/address/0xeDE87e8D824aFb897d01B8e40D9A24Df4Db60efB#writeContract"
+      href="https://testnet.bscscan.com/address/0x0FED3B32dfAceD0ed77D1F2b92F4049587CB898e#writeContract"
       target="_blank"
       >Add / Remove Liquidity Here</a
     ><br />
