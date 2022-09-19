@@ -19,6 +19,28 @@ u5 = { internalType: uc, name: '', type: uc };
 u6 = { internalType: uc + u0, name: '', type: uc + u0 };
 uf = 'function';
 un = 'nonpayable';
+uv = 'view';
+ubo = {
+  inputs: [u3],
+  name: 'balanceOf',
+  outputs: [u1],
+  stateMutability: uv,
+  type: uf,
+};
+uap = {
+  inputs: [u3, u1],
+  name: 'approve',
+  outputs: [],
+  stateMutability: un,
+  type: uf,
+};
+ual = {
+  inputs: [u3, u3],
+  name: 'allowance',
+  outputs: [u1],
+  stateMutability: uv,
+  type: uf,
+};
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
@@ -284,60 +306,17 @@ async function connect() {
     alert('Please install Metamask');
     window.location.href = 'https://metamask.io/download/';
   }
-  contract2 = new web3.eth.Contract(
-    [
-      {
-        inputs: [u3],
-        name: 'balanceOf',
-        outputs: [u1],
-        stateMutability: 'view',
-        type: uf,
-      },
-      {
-        inputs: [u3, u1],
-        name: 'approve',
-        outputs: [],
-        stateMutability: un,
-        type: uf,
-      },
-      {
-        inputs: [u3, u3],
-        name: 'allowance',
-        outputs: [u1],
-        stateMutability: 'view',
-        type: uf,
-      },
-    ],
-    CA2
-  );
+  contract2 = new web3.eth.Contract([ubo, uap, ual], CA2);
   contract3 = new web3.eth.Contract(
     [
-      {
-        inputs: [u3],
-        name: 'balanceOf',
-        outputs: [u1],
-        stateMutability: 'view',
-        type: uf,
-      },
-      {
-        inputs: [u3, u1],
-        name: 'approve',
-        outputs: [],
-        stateMutability: un,
-        type: uf,
-      },
+      ubo,
+      uap,
+      ual,
       {
         inputs: [u3],
         name: 'MINT',
         outputs: [],
         stateMutability: un,
-        type: uf,
-      },
-      {
-        inputs: [u3, u3],
-        name: 'allowance',
-        outputs: [u1],
-        stateMutability: 'view',
         type: uf,
       },
     ],
@@ -356,7 +335,7 @@ async function connect() {
         inputs: [u1, u3, u3],
         name: 'getAmountsOut',
         outputs: [u1],
-        stateMutability: 'view',
+        stateMutability: uv,
         type: uf,
       },
     ],
