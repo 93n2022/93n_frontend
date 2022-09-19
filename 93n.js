@@ -67,7 +67,7 @@ async function deposit() {
   $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, CA).call();
   if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
-  $('#stakeBtn').html('Staking...');
+  $('#stakeBtn').html('Minting...');
   await contract.methods.Purchase(_R(), v, w).send({ from: acct });
   $('#stakeBtn').html('Staked Successfully');
   disUSDT();
