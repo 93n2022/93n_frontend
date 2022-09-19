@@ -52,7 +52,7 @@ Deposit (stake in function)
 async function deposit() {
   v = $('#dNode').val();
   w = $('#dNum').val();
-  oamt = v < 3 ? 100 : v < 4 ? 1000 : 5000 * w * 1e18;
+  oamt = (v < 3 ? 100 : v < 4 ? 1000 : 5000) * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
