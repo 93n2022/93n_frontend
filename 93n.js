@@ -1,12 +1,12 @@
-/***
+/******************************************************
 Initialisation
 Connect needs try catch in case user no metamask
-***/
+*/
 CHAIN = 97;
 CA = '0xBA020394f6d1D7810B3eA2B731aC4b5b5114AE43';
-CA2 = '0xc6369abCa42d3fD38ecb316E4C2C46015d64550b';
-USDT = '0x0174Df7DFc9398D6A30E5269D942DEEfF793e17E';
-SWAP = '0x67d068df42Fa68AD9Dec643adEbC0d0318CEF08E';
+CA2 = '0x4Bd1e53213046051e3C182Da0b22e46f09DF52A0';
+USDT = '0xf58E88A4c7E12e055e0aAB6300672e37cfE6cF7c';
+SWAP = '0x0FED3B32dfAceD0ed77D1F2b92F4049587CB898e';
 u0 = '[]';
 ua = 'uint256';
 u1 = { internalType: ua, name: '', type: ua };
@@ -17,14 +17,16 @@ u4 = { internalType: ub + u0, name: '', type: ub + u0 };
 uc = 'string';
 u5 = { internalType: uc, name: '', type: uc };
 u6 = { internalType: uc + u0, name: '', type: uc + u0 };
+uf = 'function';
+un = 'nonpayable';
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
   });
 } catch (e) {}
-/***
+/******************************************************
 Deposit (stake in function)
-***/
+*/
 async function deposit() {
   oamt = $('#samt').val() * $('#num').val() * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
@@ -48,18 +50,18 @@ async function deposit() {
   $('#stakeBtn').html('Staked Successfully');
   disUSDT();
 }
-/***
+/******************************************************
 Update payment status
-***/
+*/
 async function disUSDT() {
   balUSDT = await contract3.methods.balanceOf(acct).call();
   $('#txtUSDT').html((balUSDT / 1e18).toLocaleString('en-US'));
   $('#txt93N').html((await LB()).toLocaleString('en-US'));
 }
-/***
+/******************************************************
 Display User
 Show the list of downlines
-***/
+*/
 async function disUser(_acct, _lv) {
   pa = await contract.methods.getUserPackages(_acct).call({ from: acct });
   dl = await contract.methods.getDownlines(_acct).call({ from: acct });
@@ -82,10 +84,10 @@ async function disUser(_acct, _lv) {
   }
   $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
 }
-/***
+/******************************************************
 Display Package
 Show the packages owned by downlines
-***/
+*/
 async function disPack(_pa) {
   pa = await contract.methods.Pack(_pa).call();
   $('#p' + _pa).html(
@@ -96,9 +98,9 @@ async function disPack(_pa) {
   );
   $('#p' + _pa).addClass('text');
 }
-/***
+/******************************************************
 Display all user's earning history
-***/
+*/
 async function loadEarnings(p1, p2) {
   p1 = '#' + p1;
   $(p1).html('Fetching...');
@@ -132,19 +134,19 @@ async function loadEarnings(p1, p2) {
       $(p1).html(str);
     });
 }
-/***
+/******************************************************
 Stake to credit in all profit
 Anyone can active for everyone
-***/
+*/
 async function stake() {
   $('#withBtn').html('Withdrawing...');
   await contract.methods.Staking().send({ from: acct });
   $('#withBtn').html('Withdrawn');
 }
-/***
+/******************************************************
 SWAP FUNCTION
 Update the live price per key up
-***/
+*/
 async function getPrice(p1, p2, p3) {
   $('#xc' + p3).html(
     (await contract4.methods
@@ -158,10 +160,10 @@ async function getPrice(p1, p2, p3) {
       .call()) / 1e18
   );
 }
-/***
+/******************************************************
 SWAP FUNCTION
 Exchange based on the accepted price
-***/
+*/
 async function xc(p1, p2, p3, p4) {
   $('#status').html('Approving...');
   amt = $('#amt' + p3).val() * 1e18;
@@ -186,16 +188,16 @@ function _R() {
     ? _s
     : '0x0000000000000000000000000000000000000000';
 }
-/***
+/******************************************************
 Get 93N token
-***/
+*/
 async function LB() {
   return (await contract2.methods.balanceOf(acct).call()) / 1e18;
 }
-/***
+/******************************************************
 Base wallet function
 With ABI
-***/
+*/
 async function connect() {
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
@@ -289,21 +291,21 @@ async function connect() {
         name: 'balanceOf',
         outputs: [u1],
         stateMutability: 'view',
-        type: 'function',
+        type: uf,
       },
       {
         inputs: [u3, u1],
         name: 'approve',
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
+        stateMutability: un,
+        type: uf,
       },
       {
         inputs: [u3, u3],
         name: 'allowance',
         outputs: [u1],
         stateMutability: 'view',
-        type: 'function',
+        type: uf,
       },
     ],
     CA2
@@ -315,28 +317,28 @@ async function connect() {
         name: 'balanceOf',
         outputs: [u1],
         stateMutability: 'view',
-        type: 'function',
+        type: uf,
       },
       {
         inputs: [u3, u1],
         name: 'approve',
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
+        stateMutability: un,
+        type: uf,
       },
       {
         inputs: [u3],
         name: 'MINT',
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
+        stateMutability: un,
+        type: uf,
       },
       {
         inputs: [u3, u3],
         name: 'allowance',
         outputs: [u1],
         stateMutability: 'view',
-        type: 'function',
+        type: uf,
       },
     ],
     USDT
@@ -347,15 +349,15 @@ async function connect() {
         inputs: [u1, u3, u3],
         name: 'exchange',
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
+        stateMutability: un,
+        type: uf,
       },
       {
         inputs: [u1, u3, u3],
         name: 'getAmountsOut',
         outputs: [u1],
         stateMutability: 'view',
-        type: 'function',
+        type: uf,
       },
     ],
     SWAP
