@@ -162,7 +162,7 @@ Anyone can active for everyone
 */
 async function stake() {
   $('#withBtn').html('Withdrawing...');
-  await contract.methods.Staking().send({ from: acct });
+  await contract.methods.Withdraw().send({ from: acct });
   $('#withBtn').html('Withdrawn');
 }
 /******************************************************
