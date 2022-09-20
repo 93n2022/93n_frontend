@@ -89,8 +89,11 @@ async function disUser(_acct, _lv) {
   dl = await contract.methods.getDownlines(_acct).call();
   nl = _lv + 1;
   str = '';
-  for (i = 0; i < pa[0].length; i++)
+  for (i = 0; i < pa[0].length; i++) {
+    if (pa[1][i] < 3)
+      str += `<input type="checkbox" id="cb" value="pa[0][i]"> `;
     str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${pa[0][i]}]</a><br>`;
+  }
   str +=
     _acct == acct
       ? ''
