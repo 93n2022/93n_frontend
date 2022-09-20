@@ -112,7 +112,7 @@ Display Package
 Show the packages owned by downlines
 */
 async function disPack(_pa) {
-  pa = await contract.methods.Pack(_pa).call();
+  pa = await contract.methods.pack(_pa).call();
   $('#p' + _pa).html(
     `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
       .unix(pa[4])
