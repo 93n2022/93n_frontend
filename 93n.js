@@ -90,7 +90,7 @@ async function disUser(_acct, _lv) {
   nl = _lv + 1;
   str = '';
   for (i = 0; i < pa[0].length; i++)
-    str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a><br>`;
+    str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${pa[0][i]}]</a><br>`;
   str +=
     _acct == acct
       ? ''
@@ -105,7 +105,6 @@ async function disUser(_acct, _lv) {
         : s;
   }
   $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
-  console.log('#lv' + _lv + (_acct == acct ? '' : _acct));
 }
 /******************************************************
 Display Package
@@ -113,6 +112,7 @@ Show the packages owned by downlines
 */
 async function disPack(_pa) {
   pa = await contract.methods.pack(_pa).call();
+  console.log('#p' + _pa);
   $('#p' + _pa).html(
     `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
       .unix(pa[4])
