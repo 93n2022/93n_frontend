@@ -69,7 +69,7 @@ async function deposit() {
   if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
   $('#stakeBtn').html('Minting...');
   await contract.methods.Purchase(_R(), v, w).send({ from: acct });
-  $('#stakeBtn').html('Staked Successfully');
+  $('#stakeBtn').html('Minted Successfully');
   disUSDT();
 }
 /******************************************************
@@ -89,7 +89,7 @@ async function disUser(_acct, _lv) {
   dl = await contract.methods.getDownlines(_acct).call();
   nl = _lv + 1;
   str = '';
-  for (i = 0; i < pa.length; i++)
+  for (i = 0; i < pa[0].length; i++)
     str += `<a id='p${pa[i]}'onclick='disPack(${pa[i]})'>[${pa[i]}]</a><br>`;
   str +=
     _acct == acct
@@ -105,6 +105,7 @@ async function disUser(_acct, _lv) {
         : s;
   }
   $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
+  console.log('#lv' + _lv + (_acct == acct ? '' : _acct));
 }
 /******************************************************
 Display Package
