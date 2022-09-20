@@ -125,11 +125,13 @@ Show the packages owned by downlines
 async function disPack(_pa) {
   pa = await contract.methods.pack(_pa).call();
   str = `93N (Staked): ${(pa[1] / 1e18).toLocaleString('en-US')}, `;
-  if (pa[0] > 2)
-    str += `Expiry: ${moment
-      .unix(pa[3])
-      .add(packs[pa[0]][2], 'd')
-      .format('D-MMM-YY')}`;
+  str +=
+    pa[0] > 2
+      ? `Expiry: ${moment
+          .unix(pa[3])
+          .add(packs[pa[0]][2], 'd')
+          .format('D-MMM-YY')}`
+      : `Share: ${packs[pa[0]][2]}`;
   $('#p' + _pa).html(str);
 }
 /******************************************************
