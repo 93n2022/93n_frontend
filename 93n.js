@@ -112,14 +112,13 @@ Show the packages owned by downlines
 */
 async function disPack(_pa) {
   pa = await contract.methods.pack(_pa).call();
-  console.log('#p' + _pa);
-  $('#p' + _pa).html(
-    `[93N (Staked): ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
-      .unix(pa[4])
-      .add(pa[5], 'M')
-      .format('D-MMM-YY')}] `
-  );
-  $('#p' + _pa).addClass('text');
+  str = `[93N (Staked): ` + (pa[1] / 1e18).toLocaleString('en-US');
+  if (pa[0] > 2)
+    str += `, Expiry: ${moment
+      .unix(pa[3])
+      .add(pa[0] < 4 ? 180 : 360, 'd')
+      .format('D-MMM-YY')}]`;
+  $('#p' + _pa).html(str);
 }
 /******************************************************
 Display all user's earning history
