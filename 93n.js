@@ -3,11 +3,11 @@ Initialisation
 Connect needs try catch in case user no metamask
 */
 packs = {
-  0: [100, 'Red Club', 'bTNY7QpRPVqXa1t5274jwheJoSpLdyLtsXvxmFjqYj8Z'],
-  1: [100, 'Green Club', 'U71emqLVtMWFEzwF4Y8qrs3NGkppHEUmzvfQdq6RJbAp'],
-  2: [100, 'Blue Club', 'e81vMnLTDjmZdk56coC7GzjbvfYFbjhsYYzPFXuMfwC5'],
-  3: [1000, 'Super', 'RoT9FfySEH9oZSbW6G5ARMnm1oBPPPa56TxVZvby9Cxe'],
-  4: [5000, 'Asset', 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
+  0: [100, 'Red Club', 1, 'bTNY7QpRPVqXa1t5274jwheJoSpLdyLtsXvxmFjqYj8Z'],
+  1: [100, 'Green Club', 2, 'U71emqLVtMWFEzwF4Y8qrs3NGkppHEUmzvfQdq6RJbAp'],
+  2: [100, 'Blue Club', 3, 'e81vMnLTDjmZdk56coC7GzjbvfYFbjhsYYzPFXuMfwC5'],
+  3: [1000, 'Super', 180, 'RoT9FfySEH9oZSbW6G5ARMnm1oBPPPa56TxVZvby9Cxe'],
+  4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
 };
 CHAIN = 97;
 CA = '0x57A1A22E31D2bc98B373885D2F73C459D9899172';
@@ -97,7 +97,7 @@ async function disUser(_acct, _lv) {
   nl = _lv + 1;
   str = '';
   for (i = 0; i < pa[0].length; i++) {
-    if (pa[1][i] < 3 && _lv < 1)
+    if (pa[1][i] < 3 && _lv < 2)
       str += `<input type="checkbox" id="cb" value="pa[0][i]"> `;
     str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${pa[0][i]} ${
       packs[pa[1][i]][1]
@@ -124,11 +124,11 @@ Show the packages owned by downlines
 */
 async function disPack(_pa) {
   pa = await contract.methods.pack(_pa).call();
-  str = `93N (Staked): ` + (pa[1] / 1e18).toLocaleString('en-US');
+  str = `93N (Staked): ${(pa[1] / 1e18).toLocaleString('en-US')}, `;
   if (pa[0] > 2)
-    str += `, Expiry: ${moment
+    str += `Expiry: ${moment
       .unix(pa[3])
-      .add(pa[0] < 4 ? 180 : 360, 'd')
+      .add(packs[pa[0]][2], 'd')
       .format('D-MMM-YY')}`;
   $('#p' + _pa).html(str);
 }
