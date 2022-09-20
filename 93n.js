@@ -20,6 +20,7 @@ u6 = { internalType: uc + u0, name: '', type: uc + u0 };
 uf = 'function';
 un = 'nonpayable';
 uv = 'view';
+FA = { from: acct };
 ubo = {
   inputs: [u3],
   name: 'balanceOf',
@@ -56,7 +57,7 @@ async function deposit() {
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
     $('#stakeBtn').html('Minting...');
-    await contract3.methods.MINT(acct).send({ from: acct });
+    await contract3.methods.MINT(acct).send(FA);
     disUSDT();
     $('#stakeBtn').html(
       'Minted'
@@ -66,9 +67,9 @@ async function deposit() {
   }
   $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, CA).call();
-  if (appr < amt) await contract3.methods.approve(CA, amt).send({ from: acct });
+  if (appr < amt) await contract3.methods.approve(CA, amt).send(FA);
   $('#stakeBtn').html('Minting...');
-  await contract.methods.Purchase(_R(), v, w).send({ from: acct });
+  await contract.methods.Purchase(_R(), v, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
   disUSDT();
 }
@@ -162,7 +163,7 @@ Anyone can active for everyone
 */
 async function stake() {
   $('#withBtn').html('Withdrawing...');
-  await contract.methods.Withdraw().send({ from: acct });
+  await contract.methods.Withdraw().send(FA);
   $('#withBtn').html('Withdrawn');
 }
 /******************************************************
@@ -193,9 +194,9 @@ async function xc(p1, p2, p3, p4) {
   amt = amt.toLocaleString('fullwide', {
     useGrouping: false,
   });
-  if (apv < amt) await p4.methods.approve(SWAP, amt).send({ from: acct });
+  if (apv < amt) await p4.methods.approve(SWAP, amt).send(FA);
   $('#status').html('Swaping...');
-  await contract4.methods.exchange(amt, p1, p2).send({ from: acct });
+  await contract4.methods.exchange(amt, p1, p2).send(FA);
   $('#status').html('Swapped');
   $('#amt' + p3).val('');
   $('#xc' + p3).html('0');
