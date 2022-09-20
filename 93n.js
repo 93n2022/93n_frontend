@@ -20,7 +20,6 @@ u6 = { internalType: uc + u0, name: '', type: uc + u0 };
 uf = 'function';
 un = 'nonpayable';
 uv = 'view';
-FA = { from: acct };
 ubo = {
   inputs: [u3],
   name: 'balanceOf',
@@ -226,6 +225,7 @@ async function connect() {
     web3 = new Web3(ethereum);
     acct = await ethereum.request({ method: 'eth_requestAccounts' });
     acct = acct[0];
+    FA = { from: acct };
     if ((await web3.eth.net.getId()) != CHAIN) {
       await ethereum.request({
         method: 'wallet_switchEthereumChain',
