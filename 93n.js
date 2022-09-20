@@ -114,7 +114,7 @@ async function disPack(_pa) {
   pa = await contract.methods.pack(_pa).call();
   console.log('#p' + _pa);
   $('#p' + _pa).html(
-    `[Deposited: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
+    `[93 Staking Wallet: ${(pa[1] / 1e18).toLocaleString('en-US')}, Expiry: ${moment
       .unix(pa[4])
       .add(pa[5], 'M')
       .format('D-MMM-YY')}] `
