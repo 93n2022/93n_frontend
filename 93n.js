@@ -10,10 +10,12 @@ packs = {
   4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
 };
 CHAIN = 97;
-CA = '0x57A1A22E31D2bc98B373885D2F73C459D9899172';
-CA2 = '0x9B882c3fFCb41Ca2Fe1e1F2F63a58D333B81eB03';
-USDT = '0x8389DC8Cc460198703ee461160Acb51d36a25e63';
-SWAP = '0x53F1F064473eA19012FdF577D30b77c880473328';
+A = [
+  '0x57A1A22E31D2bc98B373885D2F73C459D9899172',
+  '0x9B882c3fFCb41Ca2Fe1e1F2F63a58D333B81eB03',
+  '0x8389DC8Cc460198703ee461160Acb51d36a25e63',
+  '0x53F1F064473eA19012FdF577D30b77c880473328',
+]; //721, 20, U, XC
 u0 = '[]';
 ua = 'uint256';
 u1 = { internalType: ua, name: '', type: ua };
@@ -72,8 +74,8 @@ async function deposit() {
     //return;
   }
   $('#stakeBtn').html('Approving...');
-  appr = await contract3.methods.allowance(acct, CA).call();
-  if (appr < amt) await contract3.methods.approve(CA, amt).send(FA);
+  appr = await contract3.methods.allowance(acct, A[0]).call();
+  if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
   await contract.methods.Purchase(_R(), v, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
@@ -203,11 +205,11 @@ Exchange based on the accepted price
 async function xc(p1, p2, p3, p4) {
   $('#status').html('Approving...');
   amt = $('#amt' + p3).val() * 1e18;
-  apv = await p4.methods.allowance(acct, SWAP).call();
+  apv = await p4.methods.allowance(acct, A[3]).call();
   amt = amt.toLocaleString('fullwide', {
     useGrouping: false,
   });
-  if (apv < amt) await p4.methods.approve(SWAP, amt).send(FA);
+  if (apv < amt) await p4.methods.approve(A[3], amt).send(FA);
   $('#status').html('Swaping...');
   await contract4.methods.exchange(amt, p1, p2).send(FA);
   $('#status').html('Swapped');
@@ -329,13 +331,13 @@ async function connect() {
           type: uf,
         },
       ],
-      CA
+      A[0]
     );
   } else {
     alert('Please install Metamask');
     window.location.href = 'https://metamask.io/download/';
   }
-  contract2 = new web3.eth.Contract([ubo, uap, ual], CA2);
+  contract2 = new web3.eth.Contract([ubo, uap, ual], A[1]);
   contract3 = new web3.eth.Contract(
     [
       ubo,
@@ -349,7 +351,7 @@ async function connect() {
         type: uf,
       },
     ],
-    USDT
+    A[2]
   );
   contract4 = new web3.eth.Contract(
     [
@@ -368,7 +370,7 @@ async function connect() {
         type: uf,
       },
     ],
-    SWAP
+    A[3]
   );
   await disUSDT();
   $('#txtRB').html(_R());
