@@ -85,8 +85,8 @@ Display User
 Show the list of downlines
 */
 async function disUser(_acct, _lv) {
-  pa = await contract.methods.getUserPackages(_acct).call({ from: acct });
-  dl = await contract.methods.getDownlines(_acct).call({ from: acct });
+  pa = await contract.methods.getUserPackages(_acct).call();
+  dl = await contract.methods.getDownlines(_acct).call();
   nl = _lv + 1;
   str = '';
   for (i = 0; i < pa.length; i++)
