@@ -100,7 +100,7 @@ async function disUser(_acct, _lv) {
   str = '';
   for (i = 0; i < pa[0].length; i++) {
     if (pa[1][i] < 3 && _lv < 2)
-      str += `<input type="checkbox" id="cb" value="${pa[0][i]}"> `;
+      str += `<input type="checkbox" id="cb" value="${pa[0][i]}" onchange="checkCB()"> `;
     str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${pa[0][i]} ${
       packs[pa[1][i]][1]
     } Node]</a><br>`;
@@ -185,12 +185,23 @@ async function stake() {
 /******************************************************
 Merge function to merge only when 10 or 50 club are selected
 */
-async function merge() {
+function fillA() {
   var a = [];
   $('input:checked').each(function () {
     a.push($(this).val());
   });
 }
+/******************************************************
+Enable merge if the check comes back 10 or 50
+*/
+function checkCB() {
+  fillA();
+  console.log(a.length);
+}
+/******************************************************
+Merge function to merge only when 10 or 50 club are selected
+*/
+async function merge() {}
 /******************************************************
 SWAP FUNCTION
 Update the live price per key up
