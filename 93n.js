@@ -199,7 +199,10 @@ function checkCB() {
 Merge function to merge only when 10 or 50 club are selected
 */
 async function merge() {
-  await contract.methods.Purchase(_R(), v, w).send(FA);
+  $('#dMerge').html('Merging...');
+  await contract.methods.Merging(a).send(FA);
+  $('#dMerge').html('Merged');
+  checkCB();
 }
 /******************************************************
 SWAP FUNCTION
