@@ -183,6 +183,15 @@ async function stake() {
   $('#withBtn').html('Withdrawn');
 }
 /******************************************************
+Merge function to merge only when 10 or 50 club are selected
+*/
+async function merge() {
+  var a = [];
+  $('input:checked').each(function () {
+    a.push($(this).val());
+  });
+}
+/******************************************************
 SWAP FUNCTION
 Update the live price per key up
 */
