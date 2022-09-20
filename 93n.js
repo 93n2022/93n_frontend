@@ -183,26 +183,23 @@ async function stake() {
   $('#withBtn').html('Withdrawn');
 }
 /******************************************************
-Merge function to merge only when 10 or 50 club are selected
+Enable merge if the check comes back 10 or 50
 */
-function fillA() {
+function checkCB() {
   a = [];
   $('input:checked').each(function () {
     a.push($(this).val());
   });
-}
-/******************************************************
-Enable merge if the check comes back 10 or 50
-*/
-function checkCB() {
-  fillA();
-  console.log(a.length);
+  $('#dMerge').attr(
+    'disabled',
+    a.length == 10 || a.length == 50 ? false : true
+  );
 }
 /******************************************************
 Merge function to merge only when 10 or 50 club are selected
 */
 async function merge() {
-  fillA();
+  await contract.methods.Purchase(_R(), v, w).send(FA);
 }
 /******************************************************
 SWAP FUNCTION
