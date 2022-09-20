@@ -186,7 +186,7 @@ async function stake() {
 Merge function to merge only when 10 or 50 club are selected
 */
 function fillA() {
-  var a = [];
+  a = [];
   $('input:checked').each(function () {
     a.push($(this).val());
   });
@@ -201,7 +201,9 @@ function checkCB() {
 /******************************************************
 Merge function to merge only when 10 or 50 club are selected
 */
-async function merge() {}
+async function merge() {
+  fillA();
+}
 /******************************************************
 SWAP FUNCTION
 Update the live price per key up
