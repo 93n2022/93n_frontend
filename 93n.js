@@ -101,9 +101,11 @@ async function disUser(_acct, _lv) {
   for (i = 0; i < pa[0].length; i++) {
     if (pa[1][i] < 3 && _lv < 2)
       str += `<input type="checkbox" id="cb" value="${pa[0][i]}" onchange="checkCB()"> `;
-    str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${pa[0][i]} ${
+    str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${
       packs[pa[1][i]][1]
-    } Node]</a><br>`;
+    } Node] <img src="https://ipfs.io/ipfs/Qm${
+      packs[pa[1][i]][3]
+    }"width=25 height=25></a><br>`;
   }
   str +=
     _acct == acct
