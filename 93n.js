@@ -138,7 +138,7 @@ async function disPack(_pa) {
             .add(packs[pa[0]][2], 'd')
             .format('D-MMM-YY')}`
         : `Share: ${packs[pa[0]][2]}`
-    }`
+    }` + str
   );
 }
 /******************************************************
