@@ -207,6 +207,12 @@ async function merge() {
   checkCB();
 }
 /******************************************************
+Renew super or asset that is expired
+*/
+async function renew(n) {
+  console.log(n);
+}
+/******************************************************
 SWAP FUNCTION
 Update the live price per key up
 */
