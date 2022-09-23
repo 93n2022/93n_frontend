@@ -100,24 +100,24 @@ async function disUser(_acct, _lv) {
   str = '';
   for (i = 0; i < pa[0].length; i++) {
     if (pa[1][i] < 3 && _lv < 2)
-      str += `<input type="checkbox" id="cb" value="${pa[0][i]}" onchange="checkCB()"> `;
-    str += `<a id='p${pa[0][i]}'onclick='disPack(${pa[0][i]})'>[${
+      str += `<input type=checkbox id=cb value=${pa[0][i]} onchange=checkCB()> `;
+    str += `<a id=p${pa[0][i]} onclick=disPack(${pa[0][i]})>[${
       packs[pa[1][i]][1]
-    } Node] <img src="https://ipfs.io/ipfs/Qm${
+    } Node] <img src=https://ipfs.io/ipfs/Qm${
       packs[pa[1][i]][3]
-    }"width=25 height=25></a><br>`;
+    } width=25 height=25></a><br>`;
   }
   str +=
     _acct == acct
       ? ''
-      : `<a onclick='loadEarnings("history","${_acct}")'>[Earnings from this downline]</a>`;
+      : `<a onclick=loadEarnings("history","${_acct}")>[Earnings from this downline]</a>`;
   for (i = 0; i < dl[0].length; i++) {
     s = `<li>${dl[0][i]}</li>`;
     str +=
       _lv < 4
-        ? `<a onclick='disUser("${dl[0][i]}",${nl})'>${s}</a><ol id="lv${
+        ? `<a onclick=disUser("${dl[0][i]}",${nl})>${s}</a><ol id=lv${
             nl + dl[0][i]
-          }"></ol>`
+          }></ol>`
         : s;
   }
   $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
@@ -126,18 +126,18 @@ async function disUser(_acct, _lv) {
 Display Package
 Show the packages owned by downlines
 */
-async function disPack(_pa) {
+async function disPack(_pa, t) {
+  $('#p' + _pa)
+    .prop('onclick', null)
+    .off('click');
   pa = await contract.methods.pack(_pa).call();
+  mo = moment.unix(pa[3]).add(packs[pa[0]][2], 'd').format('YYYY-MM-DD');
   str = '';
-  if (pa[0] == 3) str += ` <button onclick=renew(${_pa})>Renew</button>`;
+  if (pa[0] == 3 || moment(new Date()).isAfter(moment(mo)))
+    str += ` <button onclick=renew(${_pa},this)>Renew</button>`;
   $('#p' + _pa).html(
     `93N (Staked): ${(pa[1] / 1e18).toLocaleString('en-US')}, ${
-      pa[0] > 2
-        ? `Expiry: ${moment
-            .unix(pa[3])
-            .add(packs[pa[0]][2], 'd')
-            .format('D-MMM-YY')}`
-        : `Share: ${packs[pa[0]][2]}`
+      pa[0] > 2 ? `Expiry: ${mo}` : `Share: ${packs[pa[0]][2]}`
     }` + str
   );
 }
@@ -211,8 +211,10 @@ async function merge() {
 /******************************************************
 Renew super or asset that is expired
 */
-async function renew(n) {
-  console.log(n);
+async function renew(n, t) {
+  $(t).html('Renewing...');
+  await contract.methods.RenewSuperNode(n).send(FA);
+  $(t).html('Renewed');
 }
 /******************************************************
 SWAP FUNCTION
