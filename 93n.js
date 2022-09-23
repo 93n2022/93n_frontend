@@ -128,6 +128,8 @@ Show the packages owned by downlines
 */
 async function disPack(_pa) {
   pa = await contract.methods.pack(_pa).call();
+  str = '';
+  if (pa[0] == 3) str += ` <button onclick=renew(${_pa})>Renew</button>`;
   $('#p' + _pa).html(
     `93N (Staked): ${(pa[1] / 1e18).toLocaleString('en-US')}, ${
       pa[0] > 2
