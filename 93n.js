@@ -133,7 +133,7 @@ async function disPack(_pa, t) {
   pa = await contract.methods.pack(_pa).call();
   mo = moment.unix(pa[3]).add(packs[pa[0]][2], 'd').format('YYYY-MM-DD');
   str = '';
-  if (pa[0] == 3 || moment(new Date()).isAfter(moment(mo)))
+  if (pa[0] == 3 && moment(new Date()).isAfter(moment(mo)))
     str += ` <button onclick=renew(${_pa},this)>Renew</button>`;
   $('#p' + _pa).html(
     `93N (Staked): ${(pa[1] / 1e18).toLocaleString('en-US')}, ${
