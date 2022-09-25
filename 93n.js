@@ -287,7 +287,7 @@ async function connect() {
       [
         {
           inputs: [u2],
-          name: 'Merging',
+          name: 'merging',
           outputs: [],
           stateMutability: un,
           type: uf,
@@ -325,21 +325,21 @@ async function connect() {
         },
         {
           inputs: [u3, u1, u1],
-          name: 'Purchase',
+          name: 'purchase',
           outputs: [],
           stateMutability: un,
           type: uf,
         },
         {
           inputs: [u1],
-          name: 'RenewSuperNode',
+          name: 'renew',
           outputs: [],
           stateMutability: un,
           type: uf,
         },
         {
           inputs: [],
-          name: 'Withdraw',
+          name: 'withdraw',
           outputs: [],
           stateMutability: un,
           type: uf,
