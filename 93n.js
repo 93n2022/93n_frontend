@@ -77,7 +77,7 @@ async function deposit() {
   appr = await contract3.methods.allowance(acct, A[0]).call();
   if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
-  await contract.methods.Purchase(_R(), v, w).send(FA);
+  await contract.methods.purchase(_R(), v, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
   disUSDT();
 }
@@ -183,7 +183,7 @@ Anyone can active for everyone
 */
 async function stake() {
   $('#withBtn').html('Withdrawing...');
-  await contract.methods.Withdraw().send(FA);
+  await contract.methods.withdraw().send(FA);
   $('#withBtn').html('Withdrawn');
 }
 /******************************************************
@@ -204,7 +204,7 @@ Merge function to merge only when 10 or 50 club are selected
 */
 async function merge() {
   $('#dMerge').html('Merging...');
-  await contract.methods.Merging(a).send(FA);
+  await contract.methods.merging(a).send(FA);
   $('#dMerge').html('Merged');
   checkCB();
 }
@@ -213,7 +213,7 @@ Renew super or asset that is expired
 */
 async function renew(n, t) {
   $(t).html('Renewing...');
-  await contract.methods.RenewSuperNode(n).send(FA);
+  await contract.methods.renewSuperNode(n).send(FA);
   $(t).html('Renewed');
 }
 /******************************************************
