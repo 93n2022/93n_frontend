@@ -26,11 +26,11 @@
     <b>[Node Balance]</b> BUSD: <a id="lblBusdN"></a>| 93N:
     <a id="lbl93nN"></a> <br /><br />
     <p>BUSD:</p>
-    <input id="txtBusd" /><br />
+    <input id="txtBusd" type="number" /><br />
     <p>93N:</p>
-    <input id="txt93n" /><br /><br />
-    <button onclick="addL()">Add Liquidity</button><br /><br />
-    <button>Remove Liquidity</button>
+    <input id="txt93n" type="number" /><br /><br />
+    <button onclick="addL(this)">Add Liquidity</button><br /><br />
+    <button onclick="removeL(this)">Remove Liquidity</button>
   </body>
   <script>
     CHAIN = 56;
@@ -76,6 +76,12 @@
     };
     async function LB(c, a) {
       return (await c.methods.balanceOf(a).call()) / 1e18;
+    }
+    async function addL(l) {
+      amt = $('#txtBusd').val();
+      $(l).html('Approving...');
+      appr = await contract3.methods.allowance(acct, A[3]).call();
+      if (appr < amt) await contract3.methods.approve(A[3], amt).send(FA);
     }
     async function connect() {
       if (typeof ethereum != 'undefined') {
