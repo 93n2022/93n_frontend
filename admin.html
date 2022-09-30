@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       * {
-        margin: 0;
+        margin: 0px;
         padding: 0;
         font-size: large;
         font-family: tahoma;
@@ -25,12 +25,17 @@
     <a id="lbl93nE"></a><br />
     <b>[Node Balance]</b> BUSD: <a id="lblBusdN"></a>| 93N:
     <a id="lbl93nN"></a> <br /><br />
-    <p>BUSD:</p>
+    <p>BUSD (A):</p>
     <input id="txtBusd" type="number" /><br />
-    <p>93N:</p>
+    <p>93N (B):</p>
     <input id="txt93n" type="number" /><br /><br />
-    <button onclick="addL(this)">Add Liquidity</button><br /><br />
-    <button onclick="removeL(this)">Remove Liquidity</button>
+    <button onclick="addL(this)">
+      Add Liquidity to SWAP <i>Fill both (A) & (B)</i></button
+    ><br /><br />
+    <button onclick="removeL(this)">
+      Remove Liquidit from SWAP <i>Fill both (A) & (B)</i></button
+    ><br /><br />
+    <button onclick="add93n(this)">Add Liquidity <i>Fill (B) only</i></button>
   </body>
   <script>
     CHAIN = 56;
@@ -77,19 +82,29 @@
     async function LB(c, a) {
       return (await c.methods.balanceOf(a).call()) / 1e18;
     }
-    async function addL(l) {
-      $(l).html('Approving...');
-
-      amt = $('#txtBusd').val() * 1e18;
-      amt2 = $('#txt93n').val() * 1e18;
-      /*appr = await contract3.methods.allowance(acct, A[3]).call();
-      if (appr < amt)
-        await contract3.methods.approve(A[3], BigInt(amt)).send(FA);
-      appr2 = await contract2.methods.allowance(acct, A[3]).call();
-      if (appr2 < amt2)
-        await contract2.methods.approve(A[3], BigInt(amt2)).send(FA); /**/
-      await contract4.methods.AddLiqudity(A[2], A[1], amt, amt2).send(FA);
+    function getVal() {
+      amt = BigInt($('#txtBusd').val() * 1e18);
+      amt2 = BigInt($('#txt93n').val() * 1e18);
     }
+    async function addL(l) {
+      $(l).html('Approving BUSD...');
+      getVal();
+      appr = await contract3.methods.allowance(acct, A[3]).call();
+      if (appr < amt) await contract3.methods.approve(A[3], amt).send(FA);
+      $(l).html('Approving 93N...');
+      appr2 = await contract2.methods.allowance(acct, A[3]).call();
+      if (appr2 < amt2) await contract2.methods.approve(A[3], amt2).send(FA);
+      $(l).html('Adding Liquidity...');
+      await contract4.methods.AddLiqudity(A[2], A[1], amt, amt2).send(FA);
+      $(l).html('<b>Liquidity Added</b>');
+    }
+    async function removeL(l) {
+      $(l).html('Removing Liquidity...');
+      getVal();
+      await contract4.methods.RemoveLiqudity(A[2], A[1], amt, amt2).send(FA);
+      $(l).html('<b>Liquidity Removed</b>');
+    }
+    async function add93n(l) {}
     async function connect() {
       if (typeof ethereum != 'undefined') {
         web3 = new Web3(ethereum);
