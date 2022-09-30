@@ -80,15 +80,15 @@
     async function addL(l) {
       $(l).html('Approving...');
 
-      amt = $('#txtBusd').val();
-      appr = await contract3.methods.allowance(acct, A[3]).call();
+      amt = $('#txtBusd').val() * 1e18;
+      amt2 = $('#txt93n').val() * 1e18;
+      /*appr = await contract3.methods.allowance(acct, A[3]).call();
       if (appr < amt)
         await contract3.methods.approve(A[3], BigInt(amt)).send(FA);
-
-      amt2 = $('#txt93n').val();
       appr2 = await contract2.methods.allowance(acct, A[3]).call();
       if (appr2 < amt2)
-        await contract2.methods.approve(A[3], BigInt(amt)).send(FA);
+        await contract2.methods.approve(A[3], BigInt(amt2)).send(FA); /**/
+      await contract4.methods.AddLiqudity(A[2], A[1], amt, amt2).send(FA);
     }
     async function connect() {
       if (typeof ethereum != 'undefined') {
