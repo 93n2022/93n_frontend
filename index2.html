@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <title>93N</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="93n2.js"></script>
+  </head>
+  <body>
+    <button id="connect" onclick="connect()">Connect</button>
+    <h1>Dashboard</h1>
+    <b id="txtUSDT"></b> USDT <b id="txt93N"></b> 93N<br /><br />
+    Upline: <b id="txtRB"></b>
+    <button
+      onclick="navigator.clipboard.writeText(location.href.replace(location.hash,'')+'?#'+acct);$(this).html('Copied')"
+    >
+      Copy your referral link</button
+    ><br /><br />
+    <select id="dNode">
+      <option value="0">Club node</option>
+      <option value="3">Super node</option>
+      <option value="4">Asset node</option>
+    </select>
+    <input id="dNum" type="number" value="1" min="1" />
+    <button id="stakeBtn" onclick="deposit()">Purchase</button><br /><br />
+    <button onclick="disUser(acct,1)">View package & downline</button> /
+    <button onclick="loadEarnings('history','')">
+      View all earning history
+    </button>
+    /
+    <button id="withBtn" onclick="stake()">Withdraw</button> /
+    <button id="dMerge" onclick="merge()" disabled>Merge</button>
+    <ol id="lv1"></ol>
+    <textarea id="history" rows="20" cols="80" readonly></textarea>
+    <h1>SWAP</h1>
+    <a
+      href="https://testnet.bscscan.com/address/0x0FED3B32dfAceD0ed77D1F2b92F4049587CB898e#writeContract"
+      target="_blank"
+      >Add / Remove Liquidity Here</a
+    ><br />
+    USDT: <input id="amt1" onkeyup="getPrice(USDT,CA2,1)" />
+    <button onclick="xc(USDT,CA2,1,contract3)">
+      Exchange <b id="xc1">0</b> 93N
+    </button>
+    <br />
+    93N: <input id="amt2" onkeyup="getPrice(CA2,USDT,2)" />
+    <button onclick="xc(CA2,USDT,2,contract2)">
+      Exchange <b id="xc2">0</b> USDT
+    </button>
+  </body>
+</html>
