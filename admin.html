@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
     <title>93N Admin Function</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: large;
+        font-family: tahoma;
+      }
+      input,
+      button {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <button id="connect" onclick="connect()">Connect</button>
-    93N balance: <a id="lbl93n"></a> BUSD balance: <a id="lblBusd"></a>
+    <b>[Admin Balanace]</b> BUSD: <a id="lblBusdA"></a>| 93N:
+    <a id="lbl93nA"></a><br />
+    <b>[Exchange Balance]</b> BUSD: <a id="lblBusdE"></a>| 93N:
+    <a id="lbl93nE"></a><br />
+    <b>[Node Balance]</b> BUSD: <a id="lblBusdN"></a>| 93N:
+    <a id="lbl93nN"></a> <br /><br />
+    <p>BUSD:</p>
+    <input id="txtBusd" /><br />
+    <p>93N:</p>
+    <input id="txt93n" /><br /><br />
+    <button onclick="addL()">Add Liquidity</button><br /><br />
+    <button>Remove Liquidity</button>
   </body>
   <script>
+    CHAIN = 56;
     A = [
       '0x686BE080Cbad57A96F1616778767EA09a96146ed',
       '0xEAa78380E5a6cc865Ea92ad0407E00265791f63c',
@@ -49,8 +74,8 @@
       stateMutability: uv,
       type: uf,
     };
-    async function LB(c) {
-      return (await c.methods.balanceOf(acct).call()) / 1e18;
+    async function LB(c, a) {
+      return (await c.methods.balanceOf(a).call()) / 1e18;
     }
     async function connect() {
       if (typeof ethereum != 'undefined') {
@@ -155,24 +180,35 @@
       contract4 = new web3.eth.Contract(
         [
           {
-            inputs: [u1, u3, u3],
-            name: 'exchange',
+            inputs: [u3, u3, u1, u1],
+            name: 'AddLiqudity',
             outputs: [],
-            stateMutability: un,
-            type: uf,
+            stateMutability: 'nonpayable',
+            type: 'function',
           },
           {
-            inputs: [u1, u3, u3],
-            name: 'getAmountsOut',
-            outputs: [u1],
-            stateMutability: uv,
-            type: uf,
+            inputs: [u3, u3, u1, u1],
+            name: 'RemoveLiqudity',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
+          },
+          {
+            inputs: [u1],
+            name: 'setFee',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function',
           },
         ],
         A[3]
       );
-      $('#lbl93N').html(LB(contract2));
-      $('#lblBusd').html(LB(contract3));
+      $('#lbl93nA').html(LB(contract2, acct));
+      $('#lblBusdA').html(LB(contract3, acct));
+      $('#lbl93nE').html(LB(contract2, A[3]));
+      $('#lblBusdE').html(LB(contract3, A[3]));
+      $('#lbl93nN').html(LB(contract2, A[0]));
+      $('#lblBusdN').html(LB(contract3, A[0]));
     }
     connect();
   </script>
