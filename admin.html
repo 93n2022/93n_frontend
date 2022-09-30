@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    93N balance: <a id="lbl93n"> BUSD balance: <a id="lblBusd"> 
+    <button id="connect" onclick="connect()">Connect</button>
+    93N balance: <a id="lbl93n"></a> BUSD balance: <a id="lblBusd"></a>
   </body>
   <script>
     A = [
@@ -51,10 +52,6 @@
     async function LB(c) {
       return (await c.methods.balanceOf(acct).call()) / 1e18;
     }
-    /******************************************************
-    Base wallet function
-    With ABI
-    */
     async function connect() {
       if (typeof ethereum != 'undefined') {
         web3 = new Web3(ethereum);
@@ -177,9 +174,9 @@
         ],
         A[3]
       );
-      await disUSDT();
       $('#lbl93N').html(LB(contract2));
       $('#lblBusd').html(LB(contract3));
     }
+    connect();
   </script>
 </html>
