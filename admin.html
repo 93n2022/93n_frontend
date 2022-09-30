@@ -30,12 +30,17 @@
     <p>93N (B):</p>
     <input id="txt93n" type="number" /><br /><br />
     <button onclick="addL(this)">
-      Add Liquidity to SWAP <i>Fill both (A) & (B)</i></button
+      Add Liquidity to SWAP - <i>Fill both (A) & (B)</i></button
     ><br /><br />
     <button onclick="removeL(this)">
-      Remove Liquidit from SWAP <i>Fill both (A) & (B)</i></button
+      Remove Liquidit from SWAP - <i>Fill both (A) & (B)</i></button
     ><br /><br />
-    <button onclick="add93n(this)">Add Liquidity <i>Fill (B) only</i></button>
+    <button onclick="add93n(this)">
+      Add 93N to Node - <i>Fill (B) only</i></button
+    ><br /><br />
+    <button onclick="removeBusd(this)">
+      Remove BUSD from Node - <i>Fill (A) only</i>
+    </button>
   </body>
   <script>
     CHAIN = 56;
@@ -89,22 +94,36 @@
     async function addL(l) {
       $(l).html('Approving BUSD...');
       getVal();
-      appr = await contract3.methods.allowance(acct, A[3]).call();
-      if (appr < amt) await contract3.methods.approve(A[3], amt).send(FA);
+      appr = await cBusd.allowance(acct, A[3]).call();
+      if (appr < amt) await cBusd.approve(A[3], amt).send(FA);
       $(l).html('Approving 93N...');
-      appr2 = await contract2.methods.allowance(acct, A[3]).call();
-      if (appr2 < amt2) await contract2.methods.approve(A[3], amt2).send(FA);
-      $(l).html('Adding Liquidity...');
-      await contract4.methods.AddLiqudity(A[2], A[1], amt, amt2).send(FA);
-      $(l).html('<b>Liquidity Added</b>');
+      appr2 = await c93n.allowance(acct, A[3]).call();
+      if (appr2 < amt2) await c93n.approve(A[3], amt2).send(FA);
+      $(l).html('Adding Liquidity to Swap...');
+      await cSwap.AddLiqudity(A[2], A[1], amt, amt2).send(FA);
+      $(l).html('<b>Liquidity Added in Swap</b>');
     }
     async function removeL(l) {
-      $(l).html('Removing Liquidity...');
+      $(l).html('Removing Liquidity in Swap...');
       getVal();
-      await contract4.methods.RemoveLiqudity(A[2], A[1], amt, amt2).send(FA);
-      $(l).html('<b>Liquidity Removed</b>');
+      await cSwap.RemoveLiqudity(A[2], A[1], amt, amt2).send(FA);
+      $(l).html('<b>Liquidity Removed in Swap</b>');
     }
-    async function add93n(l) {}
+    async function add93n(l) {
+      $(l).html('Approving 93N...');
+      getVal();
+      appr2 = await c93n.allowance(acct, A[0]).call();
+      if (appr2 < amt2) await c93n.approve(A[0], amt2).send(FA);
+      $(l).html('Adding 93N to Node...');
+      await cnode.modLiquidity(2, 0, amt2).send(FA);
+      $(l).html('<b>93N Added in Node</b>');
+    }
+    async function removeBusd(l) {
+      $(l).html('Removing BUSD from Node...');
+      getVal();
+      await cnode.modLiquidity(1, amt, 0).send(FA);
+      $(l).html('<b>BUSD Removed in Node</b>');
+    }
     async function connect() {
       if (typeof ethereum != 'undefined') {
         web3 = new Web3(ethereum);
@@ -120,91 +139,21 @@
         contract = new web3.eth.Contract(
           [
             {
-              inputs: [u2],
-              name: 'merging',
+              inputs: [u1, u1, u1],
+              name: 'modLiquidity',
               outputs: [],
-              stateMutability: un,
-              type: uf,
-            },
-            {
-              anonymous: false,
-              inputs: [
-                {
-                  indexed: true,
-                  internalType: ub,
-                  name: 'from',
-                  type: ub,
-                },
-                {
-                  indexed: true,
-                  internalType: ub,
-                  name: 'to',
-                  type: ub,
-                },
-                {
-                  indexed: false,
-                  internalType: ua,
-                  name: 'amount',
-                  type: ua,
-                },
-                {
-                  indexed: true,
-                  internalType: ua,
-                  name: 'status',
-                  type: ua,
-                },
-              ],
-              name: 'Payout',
-              type: 'event',
-            },
-            {
-              inputs: [u3, u1, u1],
-              name: 'purchase',
-              outputs: [],
-              stateMutability: un,
-              type: uf,
-            },
-            {
-              inputs: [u1],
-              name: 'renew',
-              outputs: [],
-              stateMutability: un,
-              type: uf,
-            },
-            {
-              inputs: [],
-              name: 'withdraw',
-              outputs: [],
-              stateMutability: un,
-              type: uf,
-            },
-            {
-              inputs: [u3],
-              name: 'getDownlines',
-              outputs: [u4, u1, u1],
-              stateMutability: uv,
-              type: uf,
-            },
-            {
-              inputs: [u3],
-              name: 'getNodes',
-              outputs: [u2, u2],
-              stateMutability: uv,
+              stateMutability: 'nonpayable',
               type: 'function',
-            },
-            {
-              inputs: [u1],
-              name: 'pack',
-              outputs: [u1, u1, u1, u1, u3],
-              stateMutability: uv,
-              type: uf,
             },
           ],
           A[0]
         );
       }
+      cnode = contract.methods;
       contract2 = new web3.eth.Contract([ubo, uap, ual], A[1]);
+      c93n = contract2.methods;
       contract3 = new web3.eth.Contract([ubo, uap, ual], A[2]);
+      cBusd = contract3.methods;
       contract4 = new web3.eth.Contract(
         [
           {
@@ -231,6 +180,7 @@
         ],
         A[3]
       );
+      cSwap = contract4.methods;
       $('#lbl93nA').html(LB(contract2, acct));
       $('#lblBusdA').html(LB(contract3, acct));
       $('#lbl93nE').html(LB(contract2, A[3]));
