@@ -78,11 +78,17 @@
       return (await c.methods.balanceOf(a).call()) / 1e18;
     }
     async function addL(l) {
-      amt = $('#txtBusd').val() * 1e18;
       $(l).html('Approving...');
+
+      amt = $('#txtBusd').val();
       appr = await contract3.methods.allowance(acct, A[3]).call();
       if (appr < amt)
-        await contract3.methods.approve(A[3], amt.toString()).send(FA);
+        await contract3.methods.approve(A[3], BigInt(amt)).send(FA);
+
+      amt2 = $('#txt93n').val();
+      appr2 = await contract2.methods.allowance(acct, A[3]).call();
+      if (appr2 < amt2)
+        await contract2.methods.approve(A[3], BigInt(amt)).send(FA);
     }
     async function connect() {
       if (typeof ethereum != 'undefined') {
