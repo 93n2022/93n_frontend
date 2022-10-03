@@ -8,6 +8,7 @@ packs = {
   2: [100, 'Blue Club', 3, 'e81vMnLTDjmZdk56coC7GzjbvfYFbjhsYYzPFXuMfwC5'],
   3: [1000, 'Super', 180, 'RoT9FfySEH9oZSbW6G5ARMnm1oBPPPa56TxVZvby9Cxe'],
   4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
+  4: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe'],
 };
 CHAIN = 97;
 A = [
