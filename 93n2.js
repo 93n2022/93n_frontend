@@ -68,7 +68,6 @@ function setNode(n) {
 Deposit (stake in function)
 */
 async function deposit() {
-  v = $('#dNode').val();
   w = $('#dNum').val();
   oamt = packs[v][0] * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
@@ -86,7 +85,7 @@ async function deposit() {
   appr = await contract3.methods.allowance(acct, A[0]).call();
   if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
-  await contract.methods.purchase(_R(), v, w).send(FA);
+  await contract.methods.purchase(_R(), n, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
   disUSDT();
 }
