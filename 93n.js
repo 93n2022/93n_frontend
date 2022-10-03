@@ -64,7 +64,7 @@ async function deposit() {
   oamt = packs[v][0] * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    $(#stakeBtn).html('Insufficient USDT');
+    $('#stakeBtn').html('Insufficient USDT');
     return;
   }
   $('#stakeBtn').html('Approving...');

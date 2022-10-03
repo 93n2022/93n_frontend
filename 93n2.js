@@ -50,11 +50,19 @@ ual = {
   stateMutability: uv,
   type: uf,
 };
+node = 0;
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
   });
 } catch (e) {}
+/******************************************************
+Deposit (stake in function)
+*/
+function setNode(n) {
+  node = n < 1 || n > 5 ? 0 : n;
+  $('#n' + n).css('filter', 'brightness(50%)');
+}
 /******************************************************
 Deposit (stake in function)
 */
