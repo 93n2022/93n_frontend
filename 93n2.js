@@ -61,7 +61,8 @@ Deposit (stake in function)
 */
 function setNode(n) {
   node = n < 1 || n > 5 ? 0 : n;
-  $('#n' + n).css('filter', 'brightness(50%)');
+  for (i = 0; i < 6; i++) $('#n' + i).css('background-color', 'white');
+  $('#n' + n).css('background-color', 'grey');
 }
 /******************************************************
 Deposit (stake in function)

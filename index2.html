@@ -9,9 +9,14 @@
     <style>
       .nodes {
         width: 150px;
-        height: 150px;
         display: inline-block;
         border-style: dotted;
+        text-align: center;
+        padding: 47px 0;
+        cursor: pointer;
+      }
+      #n0 {
+        background-color: grey;
       }
     </style>
   </head>
@@ -25,17 +30,19 @@
     >
       Copy your referral link</button
     ><br /><br />
-    <div id="n0" class="nodes">Club node<br />(IMAGE PLACEHOLDER)</div>
-    <div id="n3" class="nodes">Super node<br />(IMAGE PLACEHOLDER)</div>
-    <div id="n4" class="nodes">Asset node<br />(IMAGE PLACEHOLDER)</div>
-    <div id="n5" class="nodes">Aleo node<br />(IMAGE PLACEHOLDER)</div>
-    <br />
-    <select id="dNode">
-      <option value="0">Club node</option>
-      <option value="3">Super node</option>
-      <option value="4">Asset node</option>
-    </select>
-
+    <div id="n0" class="nodes" onclick="setNode(0)">
+      <b>Club node</b><br />(IMAGE PLACEHOLDER)??
+    </div>
+    <div id="n3" class="nodes" onclick="setNode(3)">
+      <b>Super node</b><br />(IMAGE PLACEHOLDER)
+    </div>
+    <div id="n4" class="nodes" onclick="setNode(4)">
+      <b>Asset node</b><br />(IMAGE PLACEHOLDER)
+    </div>
+    <div id="n5" class="nodes" onclick="setNode(5)">
+      <b>Aleo node</b><br />(IMAGE PLACEHOLDER)
+    </div>
+    <br /><br />
     <input id="dNum" type="number" value="1" min="1" />
     <button id="stakeBtn" onclick="deposit()">Purchase</button><br /><br />
     <button onclick="disUser(acct,1)">View package & downline</button> /
