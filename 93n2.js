@@ -10,7 +10,7 @@ packs = {
   4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
   5: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe'],
 };
-CHAIN = 97;
+CHAIN = 56;
 A = [
   '0xA59aCC260078cB29EeE636D6145E48531971f8BD',
   '0x9df34684a23b4DC7BEe6fAF2BD9642421f1368AE',
