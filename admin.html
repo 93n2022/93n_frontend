@@ -19,11 +19,11 @@
     </style>
   </head>
   <body>
-    <b>[Admin Balanace]</b> BUSD: <a id="lblBusdA"></a>| 93N:
+    <b>[Admin Balanace]</b> BUSD: <a id="lblBusdA"></a> | 93N:
     <a id="lbl93nA"></a><br />
-    <b>[Exchange Balance]</b> BUSD: <a id="lblBusdE"></a>| 93N:
+    <b>[Exchange Balance]</b> BUSD: <a id="lblBusdE"></a> | 93N:
     <a id="lbl93nE"></a><br />
-    <b>[Node Balance]</b> BUSD: <a id="lblBusdN"></a>| 93N:
+    <b>[Node Balance]</b> BUSD: <a id="lblBusdN"></a> | 93N:
     <a id="lbl93nN"></a> <br /><br />
     <p>BUSD (A):</p>
     <input id="txtBusd" type="number" /><br />
@@ -84,9 +84,6 @@
       stateMutability: uv,
       type: uf,
     };
-    async function LB(c, a) {
-      return (await c.methods.balanceOf(a).call()) / 1e18;
-    }
     function getVal() {
       amt = BigInt($('#txtBusd').val() * 1e18);
       amt2 = BigInt($('#txt93n').val() * 1e18);
@@ -181,12 +178,18 @@
         A[3]
       );
       cSwap = contract4.methods;
-      $('#lbl93nA').html(LB(contract2, acct));
-      $('#lblBusdA').html(LB(contract3, acct));
-      $('#lbl93nE').html(LB(contract2, A[3]));
-      $('#lblBusdE').html(LB(contract3, A[3]));
-      $('#lbl93nN').html(LB(contract2, A[0]));
-      $('#lblBusdN').html(LB(contract3, A[0]));
+      j = {
+        0: ['93nA', contract2, acct],
+        1: ['BusdA', contract3, acct],
+        2: ['93nE', contract2, A[3]],
+        3: ['BusdE', contract3, A[3]],
+        4: ['93nN', contract2, A[0]],
+        5: ['BusdN', contract3, A[0]],
+      };
+      for (i = 0; i < Object.keys(j).length; i++)
+        $('#lbl' + j[i][0]).html(
+          (await j[i][1].methods.balanceOf(j[i][2]).call()) / 1e18
+        );
     }
     connect();
   </script>
