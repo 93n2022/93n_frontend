@@ -6,15 +6,15 @@
     <title>93N Admin Function</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+      input,
+      button {
+        width: 100%;
+      }
       * {
         margin: 0px;
         padding: 0;
         font-size: large;
         font-family: tahoma;
-      }
-      input,
-      button {
-        width: 100%;
       }
     </style>
   </head>
@@ -181,7 +181,7 @@
         A[3]
       );
       cSwap = contract4.methods;
-      await $('#lbl93nA').html(LB(contract2, acct));
+      $('#lbl93nA').html(LB(contract2, acct));
       $('#lblBusdA').html(LB(contract3, acct));
       $('#lbl93nE').html(LB(contract2, A[3]));
       $('#lblBusdE').html(LB(contract3, A[3]));
