@@ -73,14 +73,8 @@ async function deposit() {
   oamt = packs[node][0] * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    $('#stakeBtn').html('Minting...');
-    await contract3.methods.MINT(acct).send(FA);
-    disUSDT();
-    $('#stakeBtn').html(
-      'Minted'
-    ); /*REMOVE THIS IN DEPLOYMENT AND UNCOMMENT 2 LINES BELOW*/
-    //$(this).html('Insufficient USDT');
-    //return;
+    $(this).html('Insufficient BUSD');
+    return;
   }
   $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, A[0]).call();
