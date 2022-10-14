@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
+    <title>93N Admin Function</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      input {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="content" action="https://93n13.com/useraleo">
+      <input id="txtId" />
+      <input id="txtCreated" /> 
+      <input id="txtMetaAddr" />
+      <input id="txtUpline" />
+      <input
+        id="txtAleoAddr"
+        placeholder="aleo1asa2s3d4f56b7n8m9asa2s3d4f56b7n8m9"
+      />
+      <button type="submit">Update</button>
+    </form>
+  </body>
+  <script>
+    CHAIN = 97;
+    A = ['0xBF9A5503E33D812590F4672A87bB64a659a020D6'];
+    async function connect() {
+      if (typeof ethereum != 'undefined') {
+        web3 = new Web3(ethereum);
+        acct = await ethereum.request({ method: 'eth_requestAccounts' });
+        acct = acct[0];
+        FA = { from: acct };
+        if ((await web3.eth.net.getId()) != CHAIN) {
+          await ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x' + CHAIN.toString(16) }],
+          });
+        }
+        contract = new web3.eth.Contract(
+          [
+            {
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'a',
+                  type: 'address',
+                },
+              ],
+              name: 'getNodes',
+              outputs: [
+                {
+                  internalType: 'uint256[]',
+                  name: 'u',
+                  type: 'uint256[]',
+                },
+                {
+                  internalType: 'uint256[]',
+                  name: 'p',
+                  type: 'uint256[]',
+                },
+              ],
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              name: 'user',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: 'upline',
+                  type: 'address',
+                },
+              ],
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              inputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              name: 'pack',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: 'node',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 't93n',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'claimed',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'minted',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'address',
+                  name: 'owner',
+                  type: 'address',
+                },
+              ],
+              stateMutability: 'view',
+              type: 'function',
+            },
+          ],
+          A[0]
+        );
+      }
+      cnode = contract.methods;
+      nodes = await cnode.getNodes(acct).call();
+      aleoNodes = new Array();
+      aleoCreated = new Array();
+      for (i = 0; i < nodes[0].length; i++)
+        if (nodes[1][i] > 4) {
+          aleoNodes.push(nodes[0][i]);
+          pa = await contract.methods.pack(nodes[0][i]).call();
+          aleoCreated.push(pa[3]);
+        }
+      if (aleoNodes.length < 1) $('#content').html('You Do Not Have Aleo Node');
+      $('#txtId').val(aleoNodes.toString());
+      $('#txtCreated').val(aleoCreated.toString());
+      $('#txtUpline').val(await cnode.user(acct).call());
+      $('#txtMetaAddr').val(acct);
+    }
+    connect();
+  </script>
+</html>
