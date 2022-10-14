@@ -8,13 +8,14 @@ packs = {
   2: [100, 'Blue Club', 3, 'e81vMnLTDjmZdk56coC7GzjbvfYFbjhsYYzPFXuMfwC5'],
   3: [1000, 'Super', 180, 'RoT9FfySEH9oZSbW6G5ARMnm1oBPPPa56TxVZvby9Cxe'],
   4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
+  5: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe'], 
 };
-CHAIN = 56;
+CHAIN = 97;
 A = [
-  '0x686BE080Cbad57A96F1616778767EA09a96146ed',
-  '0xEAa78380E5a6cc865Ea92ad0407E00265791f63c',
-  '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
-  '0x2d54dD6818E7da36Ce2a6755048A36c5De8D2921',
+  '0xBF9A5503E33D812590F4672A87bB64a659a020D6',
+  '0xF7308C9BB8A4B45B03386a3504C8D9a7f162B811',
+  '0x796DFDBF1Aca3dbe7A355D1B489ff71a955fd472',
+  '0x7BA85D3cFa9D16088322D78eD9053A6a34cfAdb6',
 ]; //721, 20, U, XC
 u0 = '[]';
 ua = 'uint256';
@@ -50,6 +51,7 @@ ual = {
   stateMutability: uv,
   type: uf,
 };
+node = 0;
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
@@ -58,20 +60,27 @@ try {
 /******************************************************
 Deposit (stake in function)
 */
+function setNode(n) {
+  node = n < 1 || n > 5 ? 0 : n;
+  for (i = 0; i < 6; i++) $('#n' + i).css('background-color', 'white');
+  $('#n' + n).css('background-color', 'grey');
+}
+/******************************************************
+Deposit (stake in function)
+*/
 async function deposit() {
-  v = $('#dNode').val();
   w = $('#dNum').val();
-  oamt = packs[v][0] * w * 1e18;
+  oamt = packs[node][0] * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    $('#stakeBtn').html('Insufficient USDT');
+    $(this).html('Insufficient BUSD');
     return;
   }
   $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, A[0]).call();
   if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
-  await contract.methods.purchase(_R(), v, w).send(FA);
+  await contract.methods.purchase(_R(), node, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
   disUSDT();
 }
