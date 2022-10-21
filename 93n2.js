@@ -277,17 +277,17 @@ With ABI
 async function connect() {
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
-    await ethereum.request({
+    window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [{
       chainId: '0x38',
-      chainName: 'Binance Smart Chain',
+      chainName: 'Binance Smart Chain Mainnet',
       nativeCurrency: {
           name: 'Binance Coin',
           symbol: 'BNB',
           decimals: 18
       },
-      rpcUrls: ['https://bsc-dataseed4.binance.org/'],
+      rpcUrls: ['https://bsc-dataseed1.binance.org'],
       blockExplorerUrls: ['https://bscscan.com']
       }]
       })
