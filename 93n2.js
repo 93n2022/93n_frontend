@@ -277,7 +277,7 @@ With ABI
 async function connect() {
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
-    window.ethereum.request({
+    await window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [{
       chainId: '0x38',
