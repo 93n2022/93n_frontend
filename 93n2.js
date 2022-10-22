@@ -81,7 +81,7 @@ async function deposit() {
   appr = await contract3.methods.allowance(acct, A[0]).call();
   if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
-  await contract.methods.purchase(_R(), node, w).send(FA);
+  await contract.methods.purchase(ref, node, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
   disUSDT();
 }
@@ -256,14 +256,6 @@ async function xc(p1, p2, p3, p4) {
   $('#xc' + p3).html('0');
   disUSDT();
 }
-/***
-Get referral link
-***/
-function _R() {
-  _s = location.hash.substring(1).toLowerCase();
-  _s2 = await contract.methods.user(acct).call();
-  return _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
-}
 /******************************************************
 Get 93N token
 */
@@ -432,6 +424,12 @@ async function connect() {
     A[3]
   );
   await disUSDT();
-  $('#txtRB').html(_R());
+  /******************************************************
+  Display Referral Address
+  */
+  _s = location.hash.substring(1).toLowerCase();
+  _s2 = await contract.methods.user(acct).call();
+  ref = _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
+  $('#txtRB').html(ref);
   $('#ref').html(location.href.replace(location.hash,'')+'?#'+acct);
 }
