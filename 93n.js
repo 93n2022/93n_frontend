@@ -277,7 +277,7 @@ With ABI
 async function connect() {
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
-    await window.ethereum.request({
+    /*await window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [{
       chainId: '0x38',
@@ -290,7 +290,7 @@ async function connect() {
       rpcUrls: ['https://bsc-dataseed1.binance.org'],
       blockExplorerUrls: ['https://bscscan.com']
       }]
-    });
+    });*/
     acct = await ethereum.request({ method: 'eth_requestAccounts' });
     acct = acct[0];
     FA = { from: acct };
