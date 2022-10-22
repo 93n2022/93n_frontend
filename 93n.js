@@ -8,14 +8,14 @@ packs = {
   2: [100, 'Blue Club', 3, 'e81vMnLTDjmZdk56coC7GzjbvfYFbjhsYYzPFXuMfwC5'],
   3: [1000, 'Super', 180, 'RoT9FfySEH9oZSbW6G5ARMnm1oBPPPa56TxVZvby9Cxe'],
   4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
-  5: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe'],
+  5: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe']
 };
 CHAIN = 97;
 A = [
   '0xBF9A5503E33D812590F4672A87bB64a659a020D6', 
   '0xF7308C9BB8A4B45B03386a3504C8D9a7f162B811',
   '0x796DFDBF1Aca3dbe7A355D1B489ff71a955fd472',
-  '0x7BA85D3cFa9D16088322D78eD9053A6a34cfAdb6',
+  '0x7BA85D3cFa9D16088322D78eD9053A6a34cfAdb6'
 ]; //721, 20, U, XC
 u0 = '[]';
 ua = 'uint256';
