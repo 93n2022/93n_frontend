@@ -19,7 +19,7 @@ A = [
 ]; //721, 20, U, XC
 u0 = '[]';
 ua = 'uint256';
-u1 = { internalType: ua, name: '', type: ua }; 
+u1 = { internalType: ua, name: '', type: ua };
 u2 = { internalType: ua + u0, name: '', type: ua + u0 };
 ub = 'address';
 u3 = { internalType: ub, name: '', type: ub };
@@ -169,14 +169,14 @@ async function loadEarnings(p1, p2) {
               ? '93N Bonus'
               : e.status > 0
               ? '93N Staking'
-              : 'USDT deposit'
+              : 'BUSD deposit'
           }: ${e.amount / 1e18}&#10;`;
         else arr[e.status] += Number(e.amount);
       });
       if (p2 != '')
         for (i = 0; i < arr.length; i++)
           str += `${e.from.toUpperCase()} - ${
-            i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'USDT deposit'
+            i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'BUSD deposit'
           }: ${arr[i] / 1e18}&#10;`;
       $(p1).html(str);
     });
@@ -299,7 +299,7 @@ async function connect() {
           name: 'merging',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           anonymous: false,
@@ -308,71 +308,71 @@ async function connect() {
               indexed: true,
               internalType: ub,
               name: 'from',
-              type: ub,
+              type: ub
             },
             {
               indexed: true,
               internalType: ub,
               name: 'to',
-              type: ub,
+              type: ub
             },
             {
               indexed: false,
               internalType: ua,
               name: 'amount',
-              type: ua,
+              type: ua
             },
             {
               indexed: true,
               internalType: ua,
               name: 'status',
-              type: ua,
+              type: ua
             },
           ],
           name: 'Payout',
-          type: 'event',
+          type: 'event'
         },
         {
           inputs: [u3, u1, u1],
           name: 'purchase',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u1],
           name: 'renew',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           inputs: [],
           name: 'withdraw',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u3],
           name: 'getDownlines',
           outputs: [u4, u1, u1],
           stateMutability: uv,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u3],
           name: 'getNodes',
           outputs: [u2, u2],
           stateMutability: uv,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u1],
           name: 'pack',
           outputs: [u1, u1, u1, u1, u3],
           stateMutability: uv,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u3],
@@ -424,9 +424,6 @@ async function connect() {
     A[3]
   );
   await disUSDT();
-  /******************************************************
-  Display Referral Address
-  */
   _s = location.hash.substring(1).toLowerCase();
   _s2 = await contract.methods.user(acct).call();
   ref = _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;

@@ -169,14 +169,14 @@ async function loadEarnings(p1, p2) {
               ? '93N Bonus'
               : e.status > 0
               ? '93N Staking'
-              : 'USDT deposit'
+              : 'BUSD deposit'
           }: ${e.amount / 1e18}&#10;`;
         else arr[e.status] += Number(e.amount);
       });
       if (p2 != '')
         for (i = 0; i < arr.length; i++)
           str += `${e.from.toUpperCase()} - ${
-            i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'USDT deposit'
+            i > 1 ? '93N Bonus' : i > 0 ? '93N Staking' : 'BUSD deposit'
           }: ${arr[i] / 1e18}&#10;`;
       $(p1).html(str);
     });
