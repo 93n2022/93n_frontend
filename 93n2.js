@@ -19,7 +19,7 @@ A = [
 ]; //721, 20, U, XC
 u0 = '[]';
 ua = 'uint256';
-u1 = { internalType: ua, name: '', type: ua };
+u1 = { internalType: ua, name: '', type: ua }; 
 u2 = { internalType: ua + u0, name: '', type: ua + u0 };
 ub = 'address';
 u3 = { internalType: ub, name: '', type: ub };
@@ -52,6 +52,7 @@ ual = {
   type: uf,
 };
 node = 0;
+na = '0x0000000000000000000000000000000000000000';
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
@@ -260,9 +261,8 @@ Get referral link
 ***/
 function _R() {
   _s = location.hash.substring(1).toLowerCase();
-  return _s.length > 1 && _s != acct.toLowerCase()
-    ? _s
-    : '0x0000000000000000000000000000000000000000';
+  _s2 = await await contract.methods.user(acct).call();
+  return _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
 }
 /******************************************************
 Get 93N token
@@ -373,7 +373,7 @@ async function connect() {
           name: 'getNodes',
           outputs: [u2, u2],
           stateMutability: uv,
-          type: 'function',
+          type: uf,
         },
         {
           inputs: [u1],
@@ -382,6 +382,13 @@ async function connect() {
           stateMutability: uv,
           type: uf,
         },
+        {
+          inputs: [u3],
+          name: 'user',
+          outputs: [u3],
+          stateMutability: uv,
+          type: uf
+        }
       ],
       A[0]
     );
@@ -400,8 +407,8 @@ async function connect() {
         name: 'MINT',
         outputs: [],
         stateMutability: un,
-        type: uf,
-      },
+        type: uf
+      }
     ],
     A[2]
   );
@@ -412,15 +419,15 @@ async function connect() {
         name: 'exchange',
         outputs: [],
         stateMutability: un,
-        type: uf,
+        type: uf
       },
       {
         inputs: [u1, u3, u3],
         name: 'getAmountsOut',
         outputs: [u1],
         stateMutability: uv,
-        type: uf,
-      },
+        type: uf
+      }
     ],
     A[3]
   );
