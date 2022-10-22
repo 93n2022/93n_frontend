@@ -261,7 +261,7 @@ Get referral link
 ***/
 function _R() {
   _s = location.hash.substring(1).toLowerCase();
-  _s2 = await await contract.methods.user(acct).call();
+  _s2 = await contract.methods.user(acct).call();
   return _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
 }
 /******************************************************
