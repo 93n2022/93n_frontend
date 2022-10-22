@@ -261,7 +261,7 @@ Get referral link
 ***/
 function _R() {
   _s = location.hash.substring(1).toLowerCase();
-  _s2 = await await contract.methods.user(acct).call();
+  _s2 = await contract.methods.user(acct).call();
   return _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
 }
 /******************************************************
@@ -307,7 +307,7 @@ async function connect() {
           name: 'merging',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           anonymous: false,
@@ -316,71 +316,71 @@ async function connect() {
               indexed: true,
               internalType: ub,
               name: 'from',
-              type: ub,
+              type: ub
             },
             {
               indexed: true,
               internalType: ub,
               name: 'to',
-              type: ub,
+              type: ub
             },
             {
               indexed: false,
               internalType: ua,
               name: 'amount',
-              type: ua,
+              type: ua
             },
             {
               indexed: true,
               internalType: ua,
               name: 'status',
-              type: ua,
+              type: ua
             },
           ],
           name: 'Payout',
-          type: 'event',
+          type: 'event'
         },
         {
           inputs: [u3, u1, u1],
           name: 'purchase',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u1],
           name: 'renew',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           inputs: [],
           name: 'withdraw',
           outputs: [],
           stateMutability: un,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u3],
           name: 'getDownlines',
           outputs: [u4, u1, u1],
           stateMutability: uv,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u3],
           name: 'getNodes',
           outputs: [u2, u2],
           stateMutability: uv,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u1],
           name: 'pack',
           outputs: [u1, u1, u1, u1, u3],
           stateMutability: uv,
-          type: uf,
+          type: uf
         },
         {
           inputs: [u3],
