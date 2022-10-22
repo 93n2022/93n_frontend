@@ -8,11 +8,11 @@ packs = {
   2: [100, 'Blue Club', 3, 'e81vMnLTDjmZdk56coC7GzjbvfYFbjhsYYzPFXuMfwC5'],
   3: [1000, 'Super', 180, 'RoT9FfySEH9oZSbW6G5ARMnm1oBPPPa56TxVZvby9Cxe'],
   4: [5000, 'Asset', 360, 'fAB1aLQbVx1vxo9mnaCF3GSEbYQZ25kDwt1dsWYJNDfq'],
-  5: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe'], 
+  5: [1000, 'Aleo', 360, 'RgVwwnCQgDw7hyaffWAiycaaioV4117FmaiJCcUX5wfe'],
 };
 CHAIN = 97;
 A = [
-  '0xBF9A5503E33D812590F4672A87bB64a659a020D6',
+  '0xBF9A5503E33D812590F4672A87bB64a659a020D6', 
   '0xF7308C9BB8A4B45B03386a3504C8D9a7f162B811',
   '0x796DFDBF1Aca3dbe7A355D1B489ff71a955fd472',
   '0x7BA85D3cFa9D16088322D78eD9053A6a34cfAdb6',
@@ -52,6 +52,7 @@ ual = {
   type: uf,
 };
 node = 0;
+na = '0x0000000000000000000000000000000000000000';
 try {
   window.ethereum.on('accountsChanged', function (accounts) {
     connect();
@@ -73,7 +74,7 @@ async function deposit() {
   oamt = packs[node][0] * w * 1e18;
   amt = oamt.toLocaleString('fullwide', { useGrouping: false });
   if (oamt > balUSDT) {
-    $(this).html('Insufficient BUSD');
+    $('#stakeBtn').html('Insufficient BUSD');
     return;
   }
   $('#stakeBtn').html('Approving...');
@@ -260,9 +261,8 @@ Get referral link
 ***/
 function _R() {
   _s = location.hash.substring(1).toLowerCase();
-  return _s.length > 1 && _s != acct.toLowerCase()
-    ? _s
-    : '0x0000000000000000000000000000000000000000';
+  _s2 = await await contract.methods.user(acct).call();
+  return _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
 }
 /******************************************************
 Get 93N token
@@ -277,6 +277,20 @@ With ABI
 async function connect() {
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
+    await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [{
+      chainId: '0x38',
+      chainName: 'Binance Smart Chain Mainnet',
+      nativeCurrency: {
+          name: 'Binance Coin',
+          symbol: 'BNB',
+          decimals: 18
+      },
+      rpcUrls: ['https://bsc-dataseed1.binance.org'],
+      blockExplorerUrls: ['https://bscscan.com']
+      }]
+    });
     acct = await ethereum.request({ method: 'eth_requestAccounts' });
     acct = acct[0];
     FA = { from: acct };
@@ -359,7 +373,7 @@ async function connect() {
           name: 'getNodes',
           outputs: [u2, u2],
           stateMutability: uv,
-          type: 'function',
+          type: uf,
         },
         {
           inputs: [u1],
@@ -368,6 +382,13 @@ async function connect() {
           stateMutability: uv,
           type: uf,
         },
+        {
+          inputs: [u3],
+          name: 'user',
+          outputs: [u3],
+          stateMutability: uv,
+          type: uf
+        }
       ],
       A[0]
     );
@@ -386,8 +407,8 @@ async function connect() {
         name: 'MINT',
         outputs: [],
         stateMutability: un,
-        type: uf,
-      },
+        type: uf
+      }
     ],
     A[2]
   );
@@ -398,18 +419,19 @@ async function connect() {
         name: 'exchange',
         outputs: [],
         stateMutability: un,
-        type: uf,
+        type: uf
       },
       {
         inputs: [u1, u3, u3],
         name: 'getAmountsOut',
         outputs: [u1],
         stateMutability: uv,
-        type: uf,
-      },
+        type: uf
+      }
     ],
     A[3]
   );
   await disUSDT();
   $('#txtRB').html(_R());
+  $('#ref').html(location.href.replace(location.hash,'')+'?#'+acct);
 }
