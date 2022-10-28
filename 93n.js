@@ -91,7 +91,7 @@ async function deposit() {
     data: {
         'amount': w,
         'node': node,
-        'myrefaddress':_R(),
+        'myrefaddress': ref,
         'check':1,
     }
   })
