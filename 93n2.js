@@ -112,6 +112,38 @@ async function disUser(_acct, _lv) {
   pa = await contract.methods.getNodes(_acct).call();
   dl = await contract.methods.getDownlines(_acct).call();
   nl = _lv + 1;
+  bl = _lv - 1;      
+  
+  $('#rw'+_lv).remove(); 
+  $('#rw'+nl).remove();
+
+    if(_lv == 1){
+          $('#alldownline').empty();  
+          
+            $('#alldownline').css('width', '100%');
+            $('#alldownline').css('display', 'inline-table');
+            $('#alldownline').css('width', '100%');
+            
+            $('#alldownline').append('<tr id="rh" style="background-color:#BF1D2D;color:white">');
+            $('#rh').append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="hd1"');
+            $('#rh').append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="hd2"');
+            $('#rh').append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="hd3"');
+            $('#rh').append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="hd4"');
+            $('#hd1').html('Lv');
+            $('#hd2').html('Node');
+            $('#hd3').html('Address');
+            $('#hd4').html('Earnings');
+    
+    }
+
+    $('#alldownline').append('<tr id="rw'+_lv+'">');
+    $('#rw'+_lv).append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="r'+_lv+'c1">');
+    $('#rw'+_lv).append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="r'+_lv+'c2">');
+    $('#rw'+_lv).append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="r'+_lv+'c3">');
+    $('#rw'+_lv).append('<td style="border:solid 1px black;padding:10px 15px 10px 15px" id="r'+_lv+'c4">');
+    
+    $('#r'+_lv+'c1').html(_lv);
+  
   str = '';
   for (i = 0; i < pa[0].length; i++) {
     if (pa[1][i] < 3 && _lv < 2)
@@ -120,22 +152,28 @@ async function disUser(_acct, _lv) {
       packs[pa[1][i]][1]
     } Node] <img src=https://ipfs.io/ipfs/Qm${
       packs[pa[1][i]][3]
-    } width=25 height=25></a><br>`;
+    } width=60 height=60></a><br>`;
+    
   }
-  str +=
+  
+  $('#r'+_lv+'c2').html(str);
+  
+  str2 = '';
+  str2 +=
     _acct == acct
       ? ''
       : `<a onclick=loadEarnings("history","${_acct}")>[Earnings from this downline]</a>`;
+  $('#r'+bl+'c4').html(str2);   
+  
+  str3 = '';      
   for (i = 0; i < dl[0].length; i++) {
     s = `<li>${dl[0][i]}</li>`;
-    str +=
+    str3 +=
       _lv < 4
-        ? `<a onclick=disUser("${dl[0][i]}",${nl})>${s}</a><ol id=lv${
-            nl + dl[0][i]
-          }></ol>`
+        ? `<a onclick=disUser("${dl[0][i]}",${nl})>${s}</a>`
         : s;
   }
-  $('#lv' + _lv + (_acct == acct ? '' : _acct)).html(str);
+  $('#r'+_lv+'c3').html(str3);
 }
 /******************************************************
 Display Package
