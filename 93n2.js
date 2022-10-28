@@ -90,11 +90,11 @@ async function deposit() {
     type: 'post',
     data: {
         'amount': w,
-        'node':node,
+        'node': node,
         'myrefaddress':_R(),
         'check':1,
     }
-})
+  })
 }
 /******************************************************
 Update payment status
