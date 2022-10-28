@@ -59,7 +59,7 @@ try {
   });
 } catch (e) {}
 /******************************************************
-Deposit (stake in function)
+Click on the image and will become selected
 */
 function setNode(n) {
   node = n < 1 || n > 5 ? 0 : n;
@@ -84,6 +84,17 @@ async function deposit() {
   await contract.methods.purchase(ref, node, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
   disUSDT();
+  $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+  $.ajax({
+    url: '/addwallet',
+    type: 'post',
+    data: {
+        'amount': w,
+        'node':node,
+        'myrefaddress':_R(),
+        'check':1,
+    }
+})
 }
 /******************************************************
 Update payment status
