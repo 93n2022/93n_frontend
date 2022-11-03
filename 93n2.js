@@ -79,7 +79,7 @@ async function deposit() {
   }
   $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, A[0]).call();
-  if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
+  if (appr < oamt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
   await contract.methods.purchase(ref, node, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');

@@ -79,7 +79,7 @@ async function deposit() {
   }
   $('#stakeBtn').html('Approving...');
   appr = await contract3.methods.allowance(acct, A[0]).call();
-  if (appr < amt) await contract3.methods.approve(A[0], amt).send(FA);
+  if (appr < oamt) await contract3.methods.approve(A[0], amt).send(FA);
   $('#stakeBtn').html('Minting...');
   await contract.methods.purchase(ref, node, w).send(FA);
   $('#stakeBtn').html('Minted Successfully');
@@ -273,11 +273,10 @@ Exchange based on the accepted price
 */
 async function xc(p1, p2, p3, p4) {
   $('#status').html('Approving...');
-  amt = $('#amt' + p3).val() * 1e18;
-  apv = await p4.methods.allowance(acct, A[3]).call();
-  amt = amt.toLocaleString('fullwide', {
+  amt = ($('#amt' + p3).val() * 1e18).toLocaleString('fullwide', {
     useGrouping: false,
   });
+  apv = await p4.methods.allowance(acct, A[3]).call();
   if (apv < amt) await p4.methods.approve(A[3], amt).send(FA);
   $('#status').html('Swaping...');
   await contract4.methods.exchange(amt, p1, p2).send(FA);
