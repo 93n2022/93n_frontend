@@ -6,14 +6,8 @@
     <script src="https://cdn.jsdelivr.net/gh/emn178/js-crc/build/crc.min.js"></script>
   </head>
   <body>
-    <input id="a" type="number">to<input id="b" type="number"> <button onclick="show()">show</button><br>
+    <input id="a" type="number">to<input id="b" type="number">
+    <button onclick="for(i=$('#a').val();i<$('#b').val();i++)$('div').append(crc32(i.toString())+'<br>')">show</button><br>
     <div></div>
   </body>
-  <script>
-    function show(){
-      a=parseInt($('#a').val());
-      b=parseInt($('#b').val());
-      for(i=a;i<b;i++)$("div").append(crc32(i)+"<br>");
-    }
-  </script>
 </html>
