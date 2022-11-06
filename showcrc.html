@@ -10,6 +10,8 @@
     <div></div>
   </body>
   <script>
-    $("div").html('hahaha');
+    a=parseInt($('#a').val());
+    b=parseInt($('#b').val());
+    for(i=a;i<b;i++)$("div").html(crc32(i)+"<br>");
   </script>
 </html>
