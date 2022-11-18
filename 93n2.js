@@ -479,7 +479,7 @@ async function connect() {
   $('#txtRB').html(ref);
   $('#ref').html(location.href.replace(location.hash,'')+'?#'+acct);
 
-  pa = await contract.methods.getNodes(_acct).call();
+  pa = await contract.methods.getNodes(acct).call();
   cn_count = sn_count = an_count = msn_count = 0;
   for (i = 0; i < pa[0].length; i++) {
     if (pa[1][i] < 3) cn_count++;
