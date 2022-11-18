@@ -478,4 +478,13 @@ async function connect() {
   ref = _s2 != na ? _s2 : _s.length > 1 && _s != acct.toLowerCase() ? _s : na;
   $('#txtRB').html(ref);
   $('#ref').html(location.href.replace(location.hash,'')+'?#'+acct);
+
+  pa = await contract.methods.getNodes(_acct).call();
+  cn_count = sn_count = an_count = msn_count = 0;
+  for (i = 0; i < pa[0].length; i++) {
+    if (pa[1][i] < 3) cn_count++;
+    else if (pa[1][i] < 4) sn_count++;
+    else if (pa[1][i] < 5) an_count++;
+    else msn_count++;
+  }
 }
