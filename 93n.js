@@ -466,5 +466,12 @@ async function connect() {
     else if (pa[1][i] < 4) sn_count++;
     else if (pa[1][i] < 5) an_count++;
     else msn_count++;
+    $('#alldownline tr:last').
+      after(`<tr><td>${pa[0][i]}</td>
+      <td>${packs[pa[1][i]][1]}</td>
+      <td>${acct}</td>
+      <td>1</td>
+      <td>1</td>
+      </tr>`);
   }
 }
