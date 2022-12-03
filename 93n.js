@@ -315,12 +315,12 @@ async function connect() {
     acct = await ethereum.request({ method: 'eth_requestAccounts' });
     acct = acct[0];
     FA = { from: acct };
-    if ((await web3.eth.net.getId()) != CHAIN) {
+    /*if ((await web3.eth.net.getId()) != CHAIN) {
       await ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x' + CHAIN.toString(16) }],
       });
-    }
+    }*/
     contract = new web3.eth.Contract(
       [
         {
