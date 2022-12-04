@@ -318,20 +318,22 @@ With ABI
 async function connect() {
   if (typeof ethereum != 'undefined') {
     web3 = new Web3(ethereum);
-    await window.ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [{
-      chainId: '0x38',
-      chainName: 'Binance Smart Chain Mainnet',
-      nativeCurrency: {
-          name: 'Binance Coin',
-          symbol: 'BNB',
-          decimals: 18
-      },
-      rpcUrls: ['https://bsc-dataseed1.binance.org'],
-      blockExplorerUrls: ['https://bscscan.com']
-      }]
-    });
+    try{
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+        chainId: '0x38',
+        chainName: 'Binance Smart Chain Mainnet',
+        nativeCurrency: {
+            name: 'Binance Coin',
+            symbol: 'BNB',
+            decimals: 18
+        },
+        rpcUrls: ['https://bsc-dataseed1.binance.org'],
+        blockExplorerUrls: ['https://bscscan.com']
+        }]
+      });
+    }catch(e){} 
     acct = await ethereum.request({ method: 'eth_requestAccounts' });
     acct = acct[0];
     FA = { from: acct };
