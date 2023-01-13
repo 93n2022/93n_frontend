@@ -8,8 +8,17 @@
   </head>
   <body></body>
   <script>
-    $('body').append(
-      Web3.utils.toChecksumAddress('0xEb31948947c46fa1B33A29122d038c575Db19F6e')
-    );
+    a = [
+      '0x541c655fe515e4f23ceba008aefe77f76c14704b',
+      '0xec7d9ca82189cd1772176b5ec79d02c12aa927a0',
+      '0x05d8b19d4825409b335613e88aa1db194006ec4c',
+      '0xb6c3e1cddbcdc2e1758a7cc677749d3c6c811f8a',
+      '0x32075b079fa3018c0e3de7ca2492b2f8870f4e30',
+      '0x29591b9fb90bb31aaa2b070567b491cac7675465',
+      '0x9ff38559bff25022f27dd4d469fd4561eaa816b7',
+      '0xa2c43f931ffa37f09096ad98d7dc78e2f44ea3b1',
+    ];
+    for (i = 0; i < a.length; i++)
+      $('body').append(Web3.utils.toChecksumAddress(a[i]) + ',<br>');
   </script>
 </html>
