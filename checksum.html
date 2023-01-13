@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <title>93N</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
+    <script src="93n.js"></script>
+  </head>
+  <body>
+    <input id="a" type="number" />to<input id="b" type="number" />
+    <button
+      onclick="for(i=$('#a').val();i<parseInt($('#b').val())+1;i++)
+    $('div').append(crc32(i.toString()).toUpperCase()+'<br>')"
+    >
+      show</button
+    ><br />
+    <div></div>
+  </body>
+</html>
